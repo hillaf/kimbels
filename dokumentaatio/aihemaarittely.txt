@@ -1,6 +1,11 @@
 Aihe: Kimble
 
-Toteutetaan ihan superp‰r‰ytt‰v‰ Kimble-peli, jossa vain vahvat ja rohkeat p‰rj‰‰v‰t. Taidon merkityst‰ ei voi liikaa korostaa t‰ss‰ j‰nnitysn‰ytelm‰ss‰, jossa kukin 2-4 pelaajasta heitt‰‰ vuorollaan noppaa ja liikkuu nappuloineen pelilaudalla pyrkien saamaan kaikki omat nappulansa maaliruutuihin. Uuden nappulan saa liikkeelle kotipes‰st‰ vain silm‰luvulla 6 ja maaliruutuun on saavuttava tasaluvulla. Mik‰li pelaajan nappula osuu vastapelaajan nappulan varaamaan ruutuun, h‰nen nappulansa palautuu kotipes‰‰n.
+Toteutetaan ihan superp‰r‰ytt‰v‰ Kimble-peli, jossa vain vahvat ja rohkeat p‰rj‰‰v‰t.
+Taidon merkityst‰ ei voi liikaa korostaa t‰ss‰ j‰nnitysn‰ytelm‰ss‰, jossa kukin 2-4 
+pelaajasta heitt‰‰ vuorollaan noppaa ja liikkuu nappuloineen pelilaudalla pyrkien 
+saamaan kaikki omat nappulansa maaliruutuihin. Uuden nappulan saa liikkeelle kotipes‰st‰
+ vain silm‰luvulla 6 ja maaliruutuun on saavuttava tasaluvulla. Mik‰li pelaajan nappula 
+osuu vastapelaajan nappulan varaamaan ruutuun, h‰nen nappulansa palautuu kotipes‰‰n.
 
 K‰ytt‰j‰t: 2-4 pelaajaa
 
