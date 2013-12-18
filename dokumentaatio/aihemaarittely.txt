@@ -5,7 +5,9 @@ Taidon merkitystä ei voi liikaa korostaa tässä jännitysnäytelmässä, jossa kukin 
 pelaajasta heittää vuorollaan noppaa ja liikkuu nappuloineen pelilaudalla pyrkien 
 saamaan kaikki omat nappulansa maaliruutuihin. Uuden nappulan saa liikkeelle kotipesästä
 vain silmäluvulla 6 ja maaliruutuun on saavuttava tasaluvulla. Mikäli pelaajan nappula 
-osuu vastapelaajan nappulan varaamaan ruutuun, hänen nappulansa palautuu kotipesään.
+osuu vastapelaajan nappulan varaamaan ruutuun, vastapelaajan nappula palautuu kotipesään.
+Mikäli ylimääräistä aikaa jää, toteutetaan peliin myös juomapelisäännöt ja ylimääräistä
+satunnaisuutta.
 
 Käyttäjät: 2-4 pelaajaa
 
@@ -15,5 +17,5 @@ Kaikkien käyttäjien toiminnot:
 	- onnistuu jos oma nappula ei ole tiellä
 - uuden nappulan lähdättäminen
 	- onnistuu jos silmäluku 6
-- oma nappula palautuu kotipesään
-	- oma nappula osuu vastustajan nappulan varaamaan ruutuun
+- vastustajan nappula palautuu kotipesään
+	- onnistuu jos oma nappula osuu vastustajan nappulan varaamaan ruutuun
