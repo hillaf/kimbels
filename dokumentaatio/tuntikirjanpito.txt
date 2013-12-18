@@ -1,2 +1,8 @@
 16.12.2013 n. 2h
 Loin repon ja projektin ja kuuntelin Dire Straitsia ja keitin makaroonia. Such javalabra!
+
+
+18.12.2013 n. 3h
+Aloitin koodaamisen, muutamat luokat luotu ja niille testit ja jotain yksinkertaista
+toiminnallisuutta. Tappelin pit-raporttien kanssa. Piirsin luokkakaavion ja siivosin
+reposta kaikkea turhaa koska pieni OCD iski.
