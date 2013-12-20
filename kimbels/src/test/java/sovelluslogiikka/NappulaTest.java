@@ -34,7 +34,7 @@ public class NappulaTest {
     @Before
     public void setUp() {
         this.nappula = new Nappula(new Pelaaja("Mikko", VARI.KELTAINEN), VARI.KELTAINEN.getLahtoruutu());
-        this.ruutu = new Ruutu(2);
+        this.ruutu = new Ruutu(2, VARI.NEUTRAALI);
     }
     
     @After

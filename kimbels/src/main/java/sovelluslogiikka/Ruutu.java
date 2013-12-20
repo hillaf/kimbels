@@ -12,9 +12,12 @@ public class Ruutu {
  
     private int sijainti;
     private Nappula nappula;
+    private VARI vari;
     
-    public Ruutu(int sijainti){
+
+    public Ruutu(int sijainti, VARI vari){
         this.sijainti = sijainti;
+        this.vari = vari;
     }
     
     
@@ -36,5 +39,9 @@ public class Ruutu {
     
     public int getSijainti(){
         return this.sijainti;
+    }
+    
+    public VARI getVari(){
+        return this.vari;
     }
 }

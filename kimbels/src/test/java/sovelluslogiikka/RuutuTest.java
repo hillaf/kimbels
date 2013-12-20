@@ -33,7 +33,7 @@ public class RuutuTest {
 
     @Before
     public void setUp() {
-        this.ruutu = new Ruutu(2);
+        this.ruutu = new Ruutu(2, VARI.NEUTRAALI);
         this.pelaaja = new Pelaaja("Mikko", VARI.KELTAINEN);
     }
 
