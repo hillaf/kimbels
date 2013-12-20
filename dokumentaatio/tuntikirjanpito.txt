@@ -6,3 +6,6 @@ Loin repon ja projektin ja kuuntelin Dire Straitsia ja keitin makaroonia. Such j
 Aloitin koodaamisen, muutamat luokat luotu ja niille testit ja jotain yksinkertaista
 toiminnallisuutta. Tappelin pit-raporttien kanssa. Piirsin luokkakaavion ja siivosin
 reposta kaikkea turhaa koska pieni OCD iski.
+
+20.12.2013 n. 1,5h
+Loin nappula-luokan ja sille testailua ja pari metodia pelilautaan. Cobertura ja pit on ihan mahtavia vaikka tää testailu syökin älyttömästi aikaa.
