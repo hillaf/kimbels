@@ -45,9 +45,15 @@ public class PelilautaTest {
     }
 
     @Test
-    public void pelilautaLuo28Ruutua() {
+    public void pelilautaLuo44Ruutua() {
         this.pelilauta.luoRuudut();
-        assertTrue(this.pelilauta.getRengas().size() == 28);
+        assertTrue(this.pelilauta.getRengas().size() == 44);
+    }
+
+    @Test
+    public void pelilautaLuo16Lahtoruutua() {
+        this.pelilauta.luoRuudut();
+        assertTrue(this.pelilauta.getLahtoruudut().size() == 16);
     }
 
     @Test
@@ -110,6 +116,64 @@ public class PelilautaTest {
         }
 
         assertTrue(loydetytVarit.size() == 4);
+    }
+
+    @Test
+    public void luoNappulatKunLuodaanPelaajatNimilla() {
+        
+        ArrayList<String> nimet = new ArrayList<String>();
+        nimet.add("Heikki");
+        nimet.add("Pekka");
+        nimet.add("Jonne");
+        nimet.add("Make");
+        this.pelilauta.luoPelaajat(4, nimet);
+
+        assertTrue(!this.pelilauta.getPelaajat().get(0).getNappulat().isEmpty());
+        assertTrue(!this.pelilauta.getPelaajat().get(3).getNappulat().isEmpty());
+    }
+    
+        @Test
+    public void luoNappulatKunLuodaanPelaajatIlmanNimea() {
+        
+        ArrayList<String> nimet = new ArrayList<String>();
+        this.pelilauta.luoPelaajat(4, nimet);
+
+        assertTrue(!this.pelilauta.getPelaajat().get(0).getNappulat().isEmpty());
+        assertTrue(!this.pelilauta.getPelaajat().get(3).getNappulat().isEmpty());
+    }
+    @Test
+    public void luoNappuloita() {
+        Pelaaja pelaaja = new Pelaaja("Matti", VARI.KELTAINEN);
+        this.pelilauta.luoNappulat(pelaaja);
+
+        assertTrue(pelaaja.getNappulat() != null);
+    }
+
+    @Test
+    public void luoTasanNeljaNappulaa() {
+        Pelaaja pelaaja = new Pelaaja("Matti", VARI.KELTAINEN);
+        this.pelilauta.luoNappulat(pelaaja);
+
+        assertTrue(pelaaja.getNappulat().size() == 4);
+
+    }
+
+    @Test
+    public void luoNappulatOikeallePelaajalle() {
+        Pelaaja pelaaja = new Pelaaja("Matti", VARI.KELTAINEN);
+        this.pelilauta.luoNappulat(pelaaja);
+
+        assertTrue(pelaaja.getNappulat().get(0).getPelaaja().equals(pelaaja));
+
+    }
+
+    @Test
+    public void luoNappulatAloitusruutuun() {
+        Pelaaja pelaaja = new Pelaaja("Matti", VARI.KELTAINEN);
+        this.pelilauta.luoNappulat(pelaaja);
+
+        assertTrue(pelaaja.getNappulat().get(0).getSijainti() == VARI.KELTAINEN.getLahtoruutu());
+
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

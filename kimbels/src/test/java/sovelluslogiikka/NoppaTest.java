@@ -16,41 +16,60 @@ import static org.junit.Assert.*;
  * @author hilla
  */
 public class NoppaTest {
-    
+
     Noppa noppa;
-    
+
     public NoppaTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         this.noppa = new Noppa();
     }
-    
+
     @After
     public void tearDown() {
     }
-    
-    
+
     @Test
-    public void noppaAntaaPositiivisenLuvun(){
+    public void noppaAntaaPositiivisenLuvun() {
         int testattavaLuku = noppa.heitaNoppaa();
-        
         assertTrue(testattavaLuku > 0);
-    }
-    
-    @Test
-    public void noppaAntaaLuvunPienempiKuinSeitseman(){
-        int testattavaLuku = noppa.heitaNoppaa();
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku > 0);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku > 0);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku > 0);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku > 0);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku > 0);
         
+        
+    }
+
+    @Test
+    public void noppaAntaaLuvunPienempiKuinSeitseman() {
+        int testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku < 7);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku < 7);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku < 7);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku < 7);
+        testattavaLuku = noppa.heitaNoppaa();
+        assertTrue(testattavaLuku < 7);
+        testattavaLuku = noppa.heitaNoppaa();
         assertTrue(testattavaLuku < 7);
     }
     // TODO add test methods here.
