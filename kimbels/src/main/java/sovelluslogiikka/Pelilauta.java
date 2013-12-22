@@ -32,7 +32,6 @@ public class Pelilauta {
         varit.add(VARI.PUNAINEN);
         varit.add(VARI.KELTAINEN);
         varit.add(VARI.VIHREA);
-
     }
 
     public void luoRuudut() {
