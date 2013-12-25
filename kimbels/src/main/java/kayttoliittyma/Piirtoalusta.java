@@ -32,7 +32,6 @@ public class Piirtoalusta extends JPanel {
             piirraOvaali(this.x, this.y, i, graphics);
         }
         
-        graphics.fillOval(260, 260, 10, 10);
         
         piirraMaaliruudutVarille(Color.RED, 120, 480, graphics, true, false);
         piirraMaaliruudutVarille(Color.YELLOW, 480, 480, graphics, false, false);
