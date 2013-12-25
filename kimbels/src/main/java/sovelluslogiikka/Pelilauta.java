@@ -132,6 +132,9 @@ public class Pelilauta {
         return false;
 
     }
+    
+    
+    
 
     public HashMap<Integer, Ruutu> getRengas() {
         return this.rengas;

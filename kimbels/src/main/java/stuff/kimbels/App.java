@@ -1,6 +1,8 @@
 package stuff.kimbels;
 
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
+import kayttoliittyma.Kayttoliittyma;
 import sovelluslogiikka.*;
 
 /**
@@ -18,5 +20,8 @@ public class App {
         boolean onko = lauta.siirraNappulaa(nappula, 6);
         System.out.println(onko);
         System.out.println(nappula.getSijainti());
+        
+        Kayttoliittyma kayttoliittyma = new Kayttoliittyma();
+        SwingUtilities.invokeLater(kayttoliittyma);
     }
 }

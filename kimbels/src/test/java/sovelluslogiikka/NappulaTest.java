@@ -49,7 +49,7 @@ public class NappulaTest {
     
     @Test
     public void nappulanSijaintiOikein(){
-        assertTrue(this.nappula.getSijainti() == 14);
+        assertTrue(this.nappula.getSijainti() == 17);
     }
     
 

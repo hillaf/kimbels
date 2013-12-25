@@ -9,7 +9,7 @@ package sovelluslogiikka;
  * @author hilla
  */
 public enum VARI {
-    SININEN(0), PUNAINEN(7), KELTAINEN(14), VIHREA(21), NEUTRAALI(-1);
+    SININEN(39), PUNAINEN(6), KELTAINEN(17), VIHREA(28), NEUTRAALI(-1);
     private int lahtoruutu;
 
         private VARI(int lahtoruutu) {
