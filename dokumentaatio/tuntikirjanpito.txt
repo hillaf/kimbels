@@ -12,4 +12,7 @@ Loin nappula-luokan ja sille testailua ja muutaman metodin pelilautaan. Testejä 
 pikkusälää myös. Cobertura ja pit on ihan mahtavia!
 
 25.12.2013 n. 2h
-Aloitin käyttöliittymän ihmettelyn ja leikin Swingillä. Aikalailla pelkkää ruutujen asettelya ym. näpräämistä. Seuraavaksi luvassa sovelluslogiikan ja käyttöliittymän rajapintaa ja tapahtumankuuntelijaa ja muuta hauskuutta! Ruudut on indeksoitu ja se on mahdollisuus ottaa piirrettäessä huomioon tosi kivasti. Tuntuu että tää saattaa jopa joskus toimia. :D
+Aloitin käyttöliittymän ihmettelyn ja leikin Swingillä. Aikalailla pelkkää ruutujen asettelua
+ym. näpräämistä. Seuraavaksi luvassa sovelluslogiikan ja käyttöliittymän rajapintaa ja 
+tapahtumankuuntelijaa ja muuta hauskuutta! Ruudut on indeksoitu ja se on mahdollisuus ottaa 
+piirrettäessä huomioon tosi kivasti. Tuntuu että tää saattaa jopa joskus toimia. :D
