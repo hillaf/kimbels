@@ -16,3 +16,6 @@ Aloitin käyttöliittymän ihmettelyn ja leikin Swingillä. Aikalailla pelkkää ruutu
 ym. näpräämistä. Seuraavaksi luvassa sovelluslogiikan ja käyttöliittymän rajapintaa ja 
 tapahtumankuuntelijaa ja muuta hauskuutta! Ruudut on indeksoitu ja se on mahdollisuus ottaa 
 piirrettäessä huomioon tosi kivasti. Tuntuu että tää saattaa jopa joskus toimia. :D
+
+29.12.2013 n. 2h
+Vittusaatana, vitun Swing. Ihan paska päivä, mä en ymmärrä ollenkaan miten tää toimii ja miten nää button-palikat kannattaa kasata tonne ja asddgggh. Ehkä huomenna kivempi.
