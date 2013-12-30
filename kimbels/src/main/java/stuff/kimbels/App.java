@@ -19,9 +19,12 @@ public class App {
     public static void main(String[] args) {
 
 
-
+        Pelilauta lauta = new Pelilauta();
+        lauta.luoRuudut();
+        lauta.luoPelaajat(2, new ArrayList<String>());
+//        
         
-        Kayttoliittyma kayttoliittyma = new Kayttoliittyma();
+        Kayttoliittyma kayttoliittyma = new Kayttoliittyma(lauta);
         SwingUtilities.invokeLater(kayttoliittyma);
 
 

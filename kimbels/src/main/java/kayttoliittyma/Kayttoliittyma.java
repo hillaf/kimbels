@@ -16,6 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import sovelluslogiikka.KimbleLogiikka;
+import sovelluslogiikka.Pelilauta;
+import sovelluslogiikka.VARI;
 
 /**
  *
@@ -27,149 +30,175 @@ public class Kayttoliittyma implements Runnable {
     private JPanel panel;
     private int x;
     private int y;
-    
-    public Kayttoliittyma(){
-        
+    private KimbleLogiikka logiikka;
+
+    public Kayttoliittyma(KimbleLogiikka pelilauta) {
+        this.logiikka = pelilauta;
     }
-    
+
     @Override
     public void run() {
         this.frame = new JFrame("Kimbels 1.0");
         this.panel = new JPanel();
         this.frame.setLayout(new BorderLayout());
-        
-        
+
+
         this.frame.setPreferredSize(new Dimension(1000, 700));
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.panel.setLayout(null);
-        
+
         luoKomponentit();
-        
+
         this.frame.pack();
         this.frame.setVisible(true);
     }
-    
-    public void luoKomponentit(){
+
+    public void luoKomponentit() {
         this.panel.setBackground(Color.WHITE);
-        JButton button = new PyoreaNappi(0, 0, Color.BLACK);
-        this.panel.add(button);
-        button.setBounds(0, 0, 50, 50);
-        
-        piirra();
+
+        luoNoppa();
+        piirraRuudut();
+
+
         this.frame.getContentPane().add(this.panel);
     }
-    
-        public void piirra() {
 
-        
-        this.x = 0;
-        this.y = 120;
+    public void luoNoppa() {
+        JButton noppa = new PyoreaNappi(0, 0, Color.PINK, 100);
+        noppa.setText("Heitä!");
+        noppa.addActionListener(new NopanKuuntelija(noppa, this.logiikka));
+        this.panel.add(noppa);
+        noppa.setBounds(320, 270, 100, 100);
+    }
+
+    public void piirraRuudut() {
+
+
+        this.x = 100;
+        this.y = 150;
 
         for (int i = 0; i < 44; i++) {
             piirraOvaali(this.x, this.y, i);
         }
-        
-        
-        piirraMaaliruudutVarille(Color.RED, 120, 480, true, false);
-        piirraMaaliruudutVarille(Color.YELLOW, 480, 480, false, false);
-        piirraMaaliruudutVarille(Color.GREEN, 480, 120, false, true);
-        piirraMaaliruudutVarille(Color.BLUE, 120, 120, true, true);
-        
-    }
-    
-    
 
-    public void piirraOvaali(int x, int y, int i) {
+        //maaliruudut
+        piirraRuudutVarille(Color.RED, 150, 500, true, false, 7);
+        piirraRuudutVarille(Color.YELLOW, 550, 500, false, false, 18);
+        piirraRuudutVarille(Color.GREEN, 550, 100, false, true, 29);
+        piirraRuudutVarille(Color.BLUE, 150, 100, true, true, 40);
+
+        //lähtöruudut
+        piirraRuudutVarille(Color.RED, 50, 480, true, true, 44);
+        piirraRuudutVarille(Color.YELLOW, 650, 480, false, true, 48);
+        piirraRuudutVarille(Color.GREEN, 650, 120, false, false, 52);
+        piirraRuudutVarille(Color.BLUE, 50, 120, true, false, 56);
+
+    }
+
+
+
+    public void piirraOvaali(int xi, int yi, int i) {
 
         Color vari = valitseVari(i);
 
         if ((i < 7 && i > -1) || (i > 10 && i < 18) || (i > 21 && i < 29) || (i > 32 && i < 40)) {
-            JButton nappi = new PyoreaNappi(x, y, vari);
-            this.panel.add(nappi);
-            nappi.setBounds(x, y, 50, 50);
-            System.out.println("i: " + i + " x: " + nappi.getX() + " y: " + nappi.getY());
+            luoRuutu(xi, yi, vari, i);
             asetaX(i);
             asetaY(i);
         }
 
     }
 
+    public void luoRuutu(int xi, int yi, Color vari, int i) {
+
+        if (logiikka.onkoRuudussaNappula(i) == true) {
+            PyoreaNappi nappi = new PyoreaNappi(0, 0, vari);
+            nappi.asetaKlikattavaksi();
+            nappi.addActionListener(new KlikkausKuuntelija(nappi));
+            this.panel.add(nappi);
+            nappi.setBounds(xi, yi, 40, 40);
+        } else {
+            PyoreaNappi nappi = new PyoreaNappi(0, 0, vari);
+            nappi.addActionListener(new KlikkausKuuntelija(nappi));
+            this.panel.add(nappi);
+            nappi.setBounds(xi, yi, 40, 40);
+        }
+
+    }
+
     public void asetaY(int i) {
         if (i < 5 && i > -1) {
-            this.y += 70;
-        } else if (i > 15 && i < 18) {
-            this.y -= 60;
-            this.x += 60;
-        } else if (i > 21 && i < 27) {
-            this.y -= 70;
-        } else if (i > 37 && i < 40) {
             this.y += 60;
-            this.x -= 60;
+        } else if (i > 15 && i < 18) {
+            this.y -= 50;
+            this.x += 50;
+        } else if (i > 21 && i < 27) {
+            this.y -= 60;
+        } else if (i > 37 && i < 40) {
+            this.y += 50;
+            this.x -= 50;
         }
     }
 
     public void asetaX(int i) {
         if (i < 7 && i > 4) {
-            this.x += 60;
-            this.y += 60;
+            this.x += 50;
+            this.y += 50;
         } else if (i > 10 && i < 16) {
-            this.x += 70;
+            this.x += 60;
         } else if (i > 26 && i < 29) {
-            this.x -= 60;
-            this.y -= 60;
+            this.x -= 50;
+            this.y -= 50;
         } else if (i > 32 && i < 38) {
-            this.x -= 70;
+            this.x -= 60;
         }
 
 
 
     }
- 
-        
-        public void piirraMaaliruudutVarille(Color vari, int xr, int yr, boolean xKasvaa, boolean yKasvaa){
-            
-            
-            for (int i = 0; i < 4; i++) {
-                PyoreaNappi nappi = new PyoreaNappi(xr, yr, vari);
-                this.panel.add(nappi);
-                nappi.setBounds(xr, yr, 50, 50);
-                if (xKasvaa){
-                    xr += 40;
-                } else {
-                    xr -= 40;
-                }
-                if (yKasvaa){
-                    yr += 40;
-                } else {
-                    yr -= 40;
-                }
+
+    public void piirraRuudutVarille(Color vari, int xr, int yr, boolean xKasvaa, boolean yKasvaa, int indeksi) {
+
+
+        for (int i = indeksi; i < indeksi+4; i++) {
+            luoRuutu(xr, yr, vari, indeksi);
+            if (xKasvaa) {
+                xr += 40;
+            } else {
+                xr -= 40;
+            }
+            if (yKasvaa) {
+                yr += 40;
+            } else {
+                yr -= 40;
             }
         }
-        
-    
+    }
 
     public Color valitseVari(int i) {
 
-        if (i == 6){
-            System.out.println("RED: " + this.x + "   " + this.y);
+
+
+        if (i == 6) {
+            System.out.println("RED: x: " + this.x + " y: " + this.y);
             return Color.RED;
         }
-        if (i == 17){
-            System.out.println("YELLOW: " + this.x + "   " + this.y);
+        if (i == 17) {
+            System.out.println("YELLOW: x: " + this.x + " y: " + this.y);
             return Color.YELLOW;
         }
-        if (i == 28){
-            System.out.println("GREEN: " + this.x + "   " + this.y);
+        if (i == 28) {
+            System.out.println("GREEN: x: " + this.x + " y: " + this.y);
             return Color.GREEN;
         }
-        
-        if (i == 39){
-            System.out.println("BLUE: " + this.x + "   " + this.y);
+
+        if (i == 39) {
+            System.out.println("BLUE: x: " + this.x + " y: " + this.y);
             return Color.BLUE;
         }
-        
+
         return Color.LIGHT_GRAY;
+
+
     }
-    
-    
 }

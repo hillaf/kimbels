@@ -4,6 +4,7 @@
  */
 package sovelluslogiikka;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -13,13 +14,14 @@ import java.util.HashSet;
  *
  * @author hilla
  */
-public class Pelilauta {
+public class Pelilauta implements KimbleLogiikka {
 
     private HashMap<Integer, Ruutu> rengas;
     private ArrayList<Pelaaja> pelaajat;
     private HashMap<Integer, Ruutu> lahtoruudut;
     private Noppa noppa;
     private ArrayList<VARI> varit;
+    private HashMap<VARI, ArrayList<Integer>> aloitusruudut;
 
     public Pelilauta() {
         this.rengas = new HashMap<Integer, Ruutu>();
@@ -27,13 +29,16 @@ public class Pelilauta {
         this.pelaajat = new ArrayList<Pelaaja>();
         this.noppa = new Noppa();
         this.varit = new ArrayList<VARI>();
+        this.aloitusruudut = new HashMap<VARI, ArrayList<Integer>>();
 
         varit.add(VARI.SININEN);
         varit.add(VARI.PUNAINEN);
         varit.add(VARI.KELTAINEN);
         varit.add(VARI.VIHREA);
+        
     }
 
+    @Override
     public void luoRuudut() {
 
         for (int i = 0; i < 44; i++) {
@@ -54,7 +59,7 @@ public class Pelilauta {
         }
 
         luoLahtoruudut();
-
+        
 
     }
 
@@ -62,18 +67,22 @@ public class Pelilauta {
 
         int k = 0;
         int j = 0;
-
+        ArrayList<Integer> lista = new ArrayList<Integer>();
+        
         for (int i = 44; i < 60; i++) {
             if (k == 4) {
+                this.aloitusruudut.put(varit.get(j), lista);
                 k = 0;
                 j++;
             }
             this.lahtoruudut.put(i, new Ruutu(i, varit.get(j)));
+            lista.add(i);
             k++;
         }
-
+        this.aloitusruudut.put(varit.get(j), lista);
     }
 
+    @Override
     public void luoPelaajat(int pelaajienMaara, ArrayList<String> nimet) {
         int i = 0;
 
@@ -98,6 +107,7 @@ public class Pelilauta {
     }
 
     // lähtöruudut kesken!
+ 
     public void luoNappulat(Pelaaja pelaaja) {
 
         ArrayList<Nappula> nappulat = new ArrayList<Nappula>();
@@ -107,9 +117,21 @@ public class Pelilauta {
             nappulat.add(nappula);
         }
 
+        asetaNappulatAloitusruutuihin(nappulat, pelaaja.getVari());
         pelaaja.setNappulat(nappulat);
     }
+    
+    public void asetaNappulatAloitusruutuihin(ArrayList<Nappula> nappulat, VARI vari){
+        
+        for (Nappula nappula : nappulat) {
+            
+            for (Integer indeksi : this.aloitusruudut.get(vari)) {
+                this.lahtoruudut.get(indeksi).asetaNappulaRuutuun(nappula);
+            }
+        }
+    }
 
+    @Override
     public boolean siirraNappulaa(Nappula nappula, int askeleita) {
 
         VARI verrokkivari = nappula.getPelaaja().getVari();
@@ -133,6 +155,42 @@ public class Pelilauta {
 
     }
     
+    @Override
+    public VARI minkaVarinenNappula(int i){
+        
+        if (this.rengas.containsKey(i)){
+            if (onkoRuudussaNappula(i)){
+                return this.rengas.get(i).getNappula().getPelaaja().getVari();
+            }
+        }
+        
+        if (this.lahtoruudut.containsKey(i)){
+            if (onkoRuudussaNappula(i)){
+                return this.lahtoruudut.get(i).getNappula().getPelaaja().getVari();
+            }
+        }
+        
+        return VARI.NEUTRAALI;
+    }
+    
+    @Override
+    public boolean onkoRuudussaNappula(int i){
+        
+        if (this.rengas.containsKey(i)){
+            if (this.rengas.get(i).getNappula() != null){
+                return true;
+            }
+        }
+        
+        if (this.lahtoruudut.containsKey(i)){
+            if (this.lahtoruudut.get(i).getNappula() != null){
+                return true;
+            }
+        }
+        
+        return false;
+        
+    }
     
     
 
@@ -146,5 +204,19 @@ public class Pelilauta {
 
     public HashMap<Integer, Ruutu> getLahtoruudut() {
         return this.lahtoruudut;
+    }
+
+    @Override
+    public void siirraLahtoruutuun(Nappula nappula) {
+        
+    }
+    
+    public HashMap<VARI, ArrayList<Integer>> getAloitusruudut(){
+        return this.aloitusruudut;
+    }
+    
+    @Override
+    public int heitaNoppaa(){
+        return this.noppa.heitaNoppaa();
     }
 }

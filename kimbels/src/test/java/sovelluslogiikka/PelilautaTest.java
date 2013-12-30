@@ -38,6 +38,7 @@ public class PelilautaTest {
     @Before
     public void setUp() {
         this.pelilauta = new Pelilauta();
+        this.pelilauta.luoRuudut();
     }
 
     @After
@@ -207,8 +208,15 @@ public class PelilautaTest {
         Pelaaja pelaaja = new Pelaaja("Matti", VARI.KELTAINEN);
         this.pelilauta.luoNappulat(pelaaja);
 
-        assertTrue(pelaaja.getNappulat().get(0).getSijainti() == VARI.KELTAINEN.getLahtoruutu());
+        assertTrue(this.pelilauta.getAloitusruudut().get(VARI.KELTAINEN).contains(pelaaja.getNappulat().get(0).getSijainti()));
+    }
 
+    @Test
+    public void luoNappulatEriAloitusruutuihin() {
+        Pelaaja pelaaja = new Pelaaja("Matti", VARI.KELTAINEN);
+        this.pelilauta.luoNappulat(pelaaja);
+
+        assertTrue(pelaaja.getNappulat().get(0).getSijainti() != pelaaja.getNappulat().get(1).getSijainti());
     }
 
     @Test
@@ -245,6 +253,28 @@ public class PelilautaTest {
         this.pelilauta.luoRuudut();
         assertTrue(this.pelilauta.siirraNappulaa(nappula, 3) == true);
     }
+
+    @Test
+    public void noppaToimii() {
+        int luku = this.pelilauta.heitaNoppaa();
+        assertTrue(luku > 0 && luku < 7);
+        luku = this.pelilauta.heitaNoppaa();
+        assertTrue(luku > 0 && luku < 7);
+        luku = this.pelilauta.heitaNoppaa();
+        assertTrue(luku > 0 && luku < 7);
+        luku = this.pelilauta.heitaNoppaa();
+        assertTrue(luku > 0 && luku < 7);
+        luku = this.pelilauta.heitaNoppaa();
+        assertTrue(luku > 0 && luku < 7);
+        luku = this.pelilauta.heitaNoppaa();
+        assertTrue(luku > 0 && luku < 7);
+        luku = this.pelilauta.heitaNoppaa();
+        assertTrue(luku > 0 && luku < 7);
+
+
+    }
+    
+
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
