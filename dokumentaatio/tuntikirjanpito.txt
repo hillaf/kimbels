@@ -1,7 +1,6 @@
 16.12.2013 n. 2h
 Loin repon ja projektin ja kuuntelin Dire Straitsia ja keitin makaroonia. Such javalabra!
 
-
 18.12.2013 n. 3h
 Aloitin koodaamisen, muutamat luokat luotu ja niille testit ja jotain yksinkertaista
 toiminnallisuutta. Tappelin pit-raporttien kanssa. Piirsin luokkakaavion ja siivosin
@@ -25,3 +24,10 @@ miten nää button-palikat kannattaa kasata tonne ja asddgggh. Ehkä huomenna kivem
 Joo aika pahasti tää hajottaa. Jostain syystä noi buttonit ei näy ja pitäs debugailla ja 
 absolute positioningia varten mulla on jo koordinaatit ja kaikki olemassa ja se lyö ne 
 buttoneille oikein mut mitään ei näy?? Huomenna nöyränä pajaan :(
+
+31.12.2013 n. 3h
+Debugausraivolla sain from scratch -GUI:n toimimaan aika kivasti, nyt tää näyttää jo
+joltain! Indeksointi on vähän saatanasta ja multa puuttuu vielä kokonaan vuorot ja 
+kaikki sellainen pelaajanpyörittely ja nappuloiden siirtely, mutta se sit seuraavaksi.
+Testit on myös vähän jäljessä kun tää oli tällaista apinanraivoa, mutta hoidan ne kyllä ajan
+tasalle, noi sovelluslogiikan alussa tehdyt laajat testit on nimittäin ollu ihan lifesaver!
