@@ -18,4 +18,10 @@ tapahtumankuuntelijaa ja muuta hauskuutta! Ruudut on indeksoitu ja se on mahdoll
 piirrettäessä huomioon tosi kivasti. Tuntuu että tää saattaa jopa joskus toimia. :D
 
 29.12.2013 n. 2h
-Vittusaatana, vitun Swing. Ihan paska päivä, mä en ymmärrä ollenkaan miten tää toimii ja miten nää button-palikat kannattaa kasata tonne ja asddgggh. Ehkä huomenna kivempi.
+Vittusaatana, vitun Swing. Ihan paska päivä, mä en ymmärrä ollenkaan miten tää toimii ja 
+miten nää button-palikat kannattaa kasata tonne ja asddgggh. Ehkä huomenna kivempi.
+
+30.12.2013 n. 2h
+Joo aika pahasti tää hajottaa. Jostain syystä noi buttonit ei näy ja pitäs debugailla ja 
+absolute positioningia varten mulla on jo koordinaatit ja kaikki olemassa ja se lyö ne 
+buttoneille oikein mut mitään ei näy?? Huomenna nöyränä pajaan :(
