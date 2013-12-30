@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  *
  * @author hilla
  */
-public class Piirtoalusta extends JFrame {
+public class Piirtoalusta extends JPanel {
 
     private int x;
     private int y;
