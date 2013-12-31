@@ -64,11 +64,11 @@ public class Kayttoliittyma implements Runnable {
     }
 
     public void luoNoppa() {
-        JButton noppa = new PyoreaNappi(0, 0, Color.PINK, 100);
-        noppa.setText("Heitä!");
+        JButton noppa = new PyoreaNappi(0, 0, Color.PINK, 50);
+        noppa.setText("!");
         noppa.addActionListener(new NopanKuuntelija(noppa, this.logiikka));
         this.panel.add(noppa);
-        noppa.setBounds(320, 270, 100, 100);
+        noppa.setBounds(340, 290, 50, 50);
     }
 
     public void piirraRuudut() {
@@ -82,10 +82,10 @@ public class Kayttoliittyma implements Runnable {
         }
 
         //maaliruudut
-        piirraRuudutVarille(Color.RED, 150, 500, true, false, 7);
-        piirraRuudutVarille(Color.YELLOW, 550, 500, false, false, 18);
-        piirraRuudutVarille(Color.GREEN, 550, 100, false, true, 29);
-        piirraRuudutVarille(Color.BLUE, 150, 100, true, true, 40);
+        piirraRuudutVarille(Color.RED, 190, 460, true, false, 7);
+        piirraRuudutVarille(Color.YELLOW, 510, 460, false, false, 18);
+        piirraRuudutVarille(Color.GREEN, 510, 140, false, true, 29);
+        piirraRuudutVarille(Color.BLUE, 190, 140, true, true, 40);
 
         //lähtöruudut
         piirraRuudutVarille(Color.RED, 50, 480, true, true, 44);
@@ -178,24 +178,24 @@ public class Kayttoliittyma implements Runnable {
     public Color valitseVari(int i) {
 
 
-
-        if (i == 6) {
-            System.out.println("RED: x: " + this.x + " y: " + this.y);
-            return Color.RED;
-        }
-        if (i == 17) {
-            System.out.println("YELLOW: x: " + this.x + " y: " + this.y);
-            return Color.YELLOW;
-        }
-        if (i == 28) {
-            System.out.println("GREEN: x: " + this.x + " y: " + this.y);
-            return Color.GREEN;
-        }
-
-        if (i == 39) {
-            System.out.println("BLUE: x: " + this.x + " y: " + this.y);
-            return Color.BLUE;
-        }
+//
+//        if (i == 11) {
+//            System.out.println("RED: x: " + this.x + " y: " + this.y);
+//            return Color.RED;
+//        }
+//        if (i == 22) {
+//            System.out.println("YELLOW: x: " + this.x + " y: " + this.y);
+//            return Color.YELLOW;
+//        }
+//        if (i == 33) {
+//            System.out.println("GREEN: x: " + this.x + " y: " + this.y);
+//            return Color.GREEN;
+//        }
+//
+//        if (i == 44) {
+//            System.out.println("BLUE: x: " + this.x + " y: " + this.y);
+//            return Color.BLUE;
+//        }
 
         return Color.LIGHT_GRAY;
 

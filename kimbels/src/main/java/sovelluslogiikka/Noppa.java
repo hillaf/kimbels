@@ -20,7 +20,7 @@ public class Noppa {
     
     public int heitaNoppaa(){
         
-        int arvottuLuku = arpoja.nextInt(5);
+        int arvottuLuku = arpoja.nextInt(6);
         arvottuLuku = arvottuLuku+1;
         
         return arvottuLuku;
