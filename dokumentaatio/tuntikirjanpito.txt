@@ -33,4 +33,8 @@ Testit on myös vähän jäljessä kun tää oli tällaista apinanraivoa, mutta hoidan n
 tasalle, noi sovelluslogiikan alussa tehdyt laajat testit on nimittäin ollu ihan lifesaver!
 
 2.1.2013 n. 3h
-Testausta ja refaktorointia vähän ja sälää. En saanut javadocia generoitua (maven mitä vittua??) ja sekvenssikaaviot teen ihan just. Aika kurapäivä.
+Testausta ja refaktorointia vähän ja sälää. En saanut javadocia generoitua (maven mitä 
+vittua??) ja sekvenssikaaviot teen ihan just. Aika kurapäivä.
+
+2.2.2013 n. 2h
+Alkukyselyt luotu ja generoitu javadoc.
