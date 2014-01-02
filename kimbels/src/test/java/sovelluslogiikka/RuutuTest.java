@@ -85,6 +85,14 @@ public class RuutuTest {
         this.ruutu.asetaNappulaRuutuun(nappula);
         assertTrue(nappula.getSijainti() == this.ruutu.getSijainti());
     }
+    
+    @Test
+    public void poistaNappulaRuudusta(){
+        Nappula nappula = new Nappula(this.pelaaja, 1);
+        this.ruutu.asetaNappulaRuutuun(nappula);
+        this.ruutu.poistaNappulaRuudusta();
+        assertTrue(this.ruutu.getNappula() == null);
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

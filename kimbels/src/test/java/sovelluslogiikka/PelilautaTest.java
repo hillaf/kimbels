@@ -39,6 +39,7 @@ public class PelilautaTest {
     public void setUp() {
         this.pelilauta = new Pelilauta();
         this.pelilauta.luoRuudut();
+
     }
 
     @After
@@ -273,8 +274,51 @@ public class PelilautaTest {
 
 
     }
-    
 
+    @Test
+    public void palauttaaOikeanVarisenNappulan() {
+        Nappula nappula = new Nappula(new Pelaaja("Matti", VARI.PUNAINEN), 2);
+        this.pelilauta.siirraNappulaRuutuun(nappula, 5);
+        assertTrue(this.pelilauta.minkaVarinenNappula(5).equals(VARI.PUNAINEN));
+
+    }
+
+    @Test
+    public void siirtaaNappulaaTyhjaanRuutuun() {
+        ArrayList<String> pelaajat = new ArrayList<String>();
+        pelaajat.add("Matti");
+        pelaajat.add("Pentti");
+        this.pelilauta.luoPelaajat(2, pelaajat);
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 28);
+
+        assertTrue(this.pelilauta.onkoRuudussaNappula(28) == true);
+    }
+
+    @Test
+    public void siirtaaNappulanToisenRuutuun() {
+        ArrayList<String> pelaajat = new ArrayList<String>();
+        pelaajat.add("Matti");
+        pelaajat.add("Pentti");
+        this.pelilauta.luoPelaajat(2, pelaajat);
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 28);
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(1).getNappulat().get(0), 28);
+
+        assertTrue(this.pelilauta.minkaVarinenNappula(28).equals(this.pelilauta.getPelaajat().get(1).getVari()));
+    }
+
+    @Test
+    public void toisenNappulaSyodaan() {
+        ArrayList<String> pelaajat = new ArrayList<String>();
+        pelaajat.add("Matti");
+        pelaajat.add("Pentti");
+        this.pelilauta.luoPelaajat(2, pelaajat);
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 28);
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(1).getNappulat().get(0), 28);
+        int matinAloitusruutu = this.pelilauta.getAloitusruudut().get(this.pelilauta.getPelaajat().get(0).getVari()).get(0);
+        
+        
+        assertTrue(this.pelilauta.getPelaajat().get(0).getNappulat().get(0).getSijainti() == matinAloitusruutu);
+    }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

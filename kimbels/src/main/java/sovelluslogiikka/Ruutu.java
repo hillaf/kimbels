@@ -33,6 +33,10 @@ public class Ruutu {
         
     }
     
+    public void poistaNappulaRuudusta(){
+        this.nappula = null;
+    }
+    
     public Nappula getNappula(){
         return this.nappula;
     }

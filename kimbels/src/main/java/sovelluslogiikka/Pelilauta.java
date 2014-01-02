@@ -35,7 +35,7 @@ public class Pelilauta implements KimbleLogiikka {
         varit.add(VARI.PUNAINEN);
         varit.add(VARI.KELTAINEN);
         varit.add(VARI.VIHREA);
-        
+
     }
 
     @Override
@@ -59,27 +59,31 @@ public class Pelilauta implements KimbleLogiikka {
         }
 
         luoLahtoruudut();
-        
 
+
+    }
+
+    public void luoLahtoruudutVarille(int alkuindeksi, VARI vari) {
+        ArrayList<Integer> lista = new ArrayList<Integer>();
+
+        for (int i = alkuindeksi; i < alkuindeksi + 4; i++) {
+            this.lahtoruudut.put(i, new Ruutu(i, vari));
+            lista.add(i);
+        }
+
+        this.aloitusruudut.put(vari, lista);
     }
 
     public void luoLahtoruudut() {
 
-        int k = 0;
-        int j = 0;
-        ArrayList<Integer> lista = new ArrayList<Integer>();
-        
-        for (int i = 44; i < 60; i++) {
-            if (k == 4) {
-                this.aloitusruudut.put(varit.get(j), lista);
-                k = 0;
-                j++;
-            }
-            this.lahtoruudut.put(i, new Ruutu(i, varit.get(j)));
-            lista.add(i);
-            k++;
-        }
-        this.aloitusruudut.put(varit.get(j), lista);
+        luoLahtoruudutVarille(44, VARI.SININEN);
+        luoLahtoruudutVarille(48, VARI.PUNAINEN);
+        luoLahtoruudutVarille(52, VARI.KELTAINEN);
+        luoLahtoruudutVarille(56, VARI.VIHREA);
+
+
+
+
     }
 
     @Override
@@ -106,8 +110,6 @@ public class Pelilauta implements KimbleLogiikka {
 
     }
 
-    // lähtöruudut kesken!
- 
     public void luoNappulat(Pelaaja pelaaja) {
 
         ArrayList<Nappula> nappulat = new ArrayList<Nappula>();
@@ -120,17 +122,17 @@ public class Pelilauta implements KimbleLogiikka {
         asetaNappulatAloitusruutuihin(nappulat, pelaaja.getVari());
         pelaaja.setNappulat(nappulat);
     }
-    
-    public void asetaNappulatAloitusruutuihin(ArrayList<Nappula> nappulat, VARI vari){
-        
-        for (Nappula nappula : nappulat) {
-            
-            for (Integer indeksi : this.aloitusruudut.get(vari)) {
-                this.lahtoruudut.get(indeksi).asetaNappulaRuutuun(nappula);
-            }
+
+    public void asetaNappulatAloitusruutuihin(ArrayList<Nappula> nappulat, VARI vari) {
+        int i = 0;
+
+        for (Integer indeksi : this.aloitusruudut.get(vari)) {
+            this.lahtoruudut.get(indeksi).asetaNappulaRuutuun(nappulat.get(i));
+            i++;
         }
     }
 
+    // tää on superkesken ja aika olennainen!
     @Override
     public boolean siirraNappulaa(Nappula nappula, int askeleita) {
 
@@ -147,52 +149,85 @@ public class Pelilauta implements KimbleLogiikka {
             Ruutu tutkittavaRuutu = this.rengas.get(tutkittavaSijainti);
 
             if (verrokkivari.equals(tutkittavaRuutu.getVari()) || tutkittavaRuutu.getVari().equals(VARI.NEUTRAALI)) {
-                return tutkittavaRuutu.asetaNappulaRuutuun(nappula);
+                return true;
             }
         }
 
         return false;
 
     }
-    
+
+    /**
+     * Metodi palauttaa ruudussa olevan nappulan värin. Metodi saa parametrina
+     * ruudun indeksin.
+     *
+     * @param int parametrina ruudun indeksi
+     *
+     * @return VARI minkä värinen nappula ruudussa
+     */
     @Override
-    public VARI minkaVarinenNappula(int i){
-        
-        if (this.rengas.containsKey(i)){
-            if (onkoRuudussaNappula(i)){
+    public VARI minkaVarinenNappula(int i) {
+
+        if (this.rengas.containsKey(i)) {
+            if (onkoRuudussaNappula(i)) {
                 return this.rengas.get(i).getNappula().getPelaaja().getVari();
             }
         }
-        
-        if (this.lahtoruudut.containsKey(i)){
-            if (onkoRuudussaNappula(i)){
+
+        if (this.lahtoruudut.containsKey(i)) {
+            if (onkoRuudussaNappula(i)) {
                 return this.lahtoruudut.get(i).getNappula().getPelaaja().getVari();
             }
         }
-        
+
         return VARI.NEUTRAALI;
     }
-    
-    @Override
-    public boolean onkoRuudussaNappula(int i){
-        
-        if (this.rengas.containsKey(i)){
-            if (this.rengas.get(i).getNappula() != null){
-                return true;
+
+    public void siirraNappulaRuutuun(Nappula nappula, int indeksi) {
+
+        if (!onkoRuudussaNappula(indeksi)) {
+            Ruutu sijoitettava = this.rengas.get(indeksi);
+            poistaNappulaRuudusta(nappula.getSijainti());
+            sijoitettava.asetaNappulaRuutuun(nappula);
+        } else {
+            if (!minkaVarinenNappula(indeksi).equals(nappula.getPelaaja().getVari())) {
+                siirraLahtoruutuun(this.rengas.get(indeksi).getNappula());
+                Ruutu sijoitettava = this.rengas.get(indeksi);
+                poistaNappulaRuudusta(nappula.getSijainti());
+                sijoitettava.asetaNappulaRuutuun(nappula);
             }
         }
-        
-        if (this.lahtoruudut.containsKey(i)){
-            if (this.lahtoruudut.get(i).getNappula() != null){
-                return true;
-            }
-        }
-        
-        return false;
-        
+
     }
-    
-    
+
+    public void poistaNappulaRuudusta(int indeksi) {
+        if (this.rengas.containsKey(indeksi)) {
+            this.rengas.get(indeksi).poistaNappulaRuudusta();
+        }
+
+        if (this.lahtoruudut.containsKey(indeksi)) {
+            this.lahtoruudut.get(indeksi).poistaNappulaRuudusta();
+        }
+    }
+
+    @Override
+    public boolean onkoRuudussaNappula(int i) {
+
+        if (this.rengas.containsKey(i)) {
+            if (this.rengas.get(i).getNappula() != null) {
+                return true;
+            }
+        }
+
+        if (this.lahtoruudut.containsKey(i)) {
+            if (this.lahtoruudut.get(i).getNappula() != null) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 
     public HashMap<Integer, Ruutu> getRengas() {
         return this.rengas;
@@ -208,15 +243,25 @@ public class Pelilauta implements KimbleLogiikka {
 
     @Override
     public void siirraLahtoruutuun(Nappula nappula) {
-        
+
+        boolean jatkuu = true;
+        int sijaintiEnnen = nappula.getSijainti();
+
+        for (Integer integer : this.aloitusruudut.get(nappula.getPelaaja().getVari())) {
+            if (jatkuu == true && this.lahtoruudut.get(integer).asetaNappulaRuutuun(nappula) == true) {
+                this.rengas.get(sijaintiEnnen).poistaNappulaRuudusta();
+                jatkuu = false;
+            }
+        }
+
     }
-    
-    public HashMap<VARI, ArrayList<Integer>> getAloitusruudut(){
+
+    public HashMap<VARI, ArrayList<Integer>> getAloitusruudut() {
         return this.aloitusruudut;
     }
-    
+
     @Override
-    public int heitaNoppaa(){
+    public int heitaNoppaa() {
         return this.noppa.heitaNoppaa();
     }
 }

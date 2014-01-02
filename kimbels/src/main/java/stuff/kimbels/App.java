@@ -22,7 +22,7 @@ public class App {
         Pelilauta lauta = new Pelilauta();
         lauta.luoRuudut();
         lauta.luoPelaajat(2, new ArrayList<String>());
-//        
+        lauta.siirraNappulaRuutuun(lauta.getPelaajat().get(0).getNappulat().get(0), 15);
         
         Kayttoliittyma kayttoliittyma = new Kayttoliittyma(lauta);
         SwingUtilities.invokeLater(kayttoliittyma);
