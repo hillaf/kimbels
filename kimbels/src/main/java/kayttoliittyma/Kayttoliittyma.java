@@ -22,7 +22,7 @@ import sovelluslogiikka.VARI;
 
 /**
  *
- * Käyttöliittymä/piirtäjä. Huolehtii grafiikasta eli ruutujen ja nappuloiden piirtämisestä.
+ * Käyttöliittymä/piirtäjä. Huolehtii ruutujen ja nappuloiden piirtämisestä.
  * 
  * 
  * @author hilla
@@ -102,7 +102,7 @@ public class Kayttoliittyma implements Runnable {
 
     public void piirraOvaali(int xi, int yi, int i) {
 
-        Color vari = valitseVari(i);
+        Color vari = Color.LIGHT_GRAY;
 
         if ((i < 7 && i > -1) || (i > 10 && i < 18) || (i > 21 && i < 29) || (i > 32 && i < 40)) {
             luoRuutu(xi, yi, vari, i);
@@ -177,31 +177,8 @@ public class Kayttoliittyma implements Runnable {
             }
         }
     }
+    
+    
 
-    public Color valitseVari(int i) {
-
-
-//
-//        if (i == 11) {
-//            System.out.println("RED: x: " + this.x + " y: " + this.y);
-//            return Color.RED;
-//        }
-//        if (i == 22) {
-//            System.out.println("YELLOW: x: " + this.x + " y: " + this.y);
-//            return Color.YELLOW;
-//        }
-//        if (i == 33) {
-//            System.out.println("GREEN: x: " + this.x + " y: " + this.y);
-//            return Color.GREEN;
-//        }
-//
-//        if (i == 44) {
-//            System.out.println("BLUE: x: " + this.x + " y: " + this.y);
-//            return Color.BLUE;
-//        }
-
-        return Color.LIGHT_GRAY;
-
-
-    }
+    
 }

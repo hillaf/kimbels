@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import kayttoliittyma.Kayttoliittyma;
+import kayttoliittyma.Peliaction;
 import kayttoliittyma.PyoreaNappi;
 import sovelluslogiikka.*;
 
@@ -19,13 +20,9 @@ public class App {
     public static void main(String[] args) {
 
 
-        Pelilauta lauta = new Pelilauta();
-        lauta.luoRuudut();
-        lauta.luoPelaajat(2, new ArrayList<String>());
-        lauta.siirraNappulaRuutuun(lauta.getPelaajat().get(0).getNappulat().get(0), 15);
         
-        Kayttoliittyma kayttoliittyma = new Kayttoliittyma(lauta);
-        SwingUtilities.invokeLater(kayttoliittyma);
+        Peliaction peliaction = new Peliaction();
+        SwingUtilities.invokeLater(peliaction);
 
 
 

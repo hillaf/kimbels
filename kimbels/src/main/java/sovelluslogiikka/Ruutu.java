@@ -7,7 +7,8 @@ package sovelluslogiikka;
 /**
  *
  * 
- * Pelilaudan yksi ruutu. Voi olla lähtö- tai maaliruutu tai tavallinen ruutu. Tavalliset ruudut väriltään neutraaleja. Tietää oman värinsä ja sijaintinsa. Saattaa sisältää nappulan - jos ei, nappula == null.
+ * Pelilaudan yksi ruutu. Voi olla lähtö- tai maaliruutu tai tavallinen ruutu. Tavalliset ruudut väriltään neutraaleja. 
+ * Tietää oman värinsä ja sijaintinsa. Saattaa sisältää nappulan - jos ei, nappula == null.
  * 
  * 
  * @author hilla
