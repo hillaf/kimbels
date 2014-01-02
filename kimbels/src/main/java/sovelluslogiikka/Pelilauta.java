@@ -12,6 +12,9 @@ import java.util.HashSet;
 
 /**
  *
+ * Pelilauta huolehtii esim. kaikesta. Toimii rajapintana käyttöliittymälle ja huolehtii pelilaudan tapahtumista. 
+ * 
+ * 
  * @author hilla
  */
 public class Pelilauta implements KimbleLogiikka {

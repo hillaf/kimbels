@@ -11,6 +11,9 @@ import sovelluslogiikka.KimbleLogiikka;
 
 /**
  *
+ * Nopan tapahtumakuuntelija.
+ * 
+ * 
  * @author hilla
  */
 public class NopanKuuntelija implements ActionListener {

@@ -22,6 +22,9 @@ import sovelluslogiikka.VARI;
 
 /**
  *
+ * Käyttöliittymä/piirtäjä. Huolehtii grafiikasta eli ruutujen ja nappuloiden piirtämisestä.
+ * 
+ * 
  * @author hilla
  */
 public class Kayttoliittyma implements Runnable {

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 /**
  *
+ * Sovelluslogiikan rajapinta käyttöliittymälle.
+ * 
+ * 
  * @author hilla
  */
 public interface KimbleLogiikka {

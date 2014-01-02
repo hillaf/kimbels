@@ -6,6 +6,9 @@ package sovelluslogiikka;
 
 /**
  *
+ * 
+ * Nappula. Tietää kenelle pelaajalle kuuluu sekä oman sijaintinsa.
+ * 
  * @author hilla
  */
 public class Nappula {

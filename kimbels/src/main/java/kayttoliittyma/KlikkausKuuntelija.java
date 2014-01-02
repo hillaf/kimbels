@@ -10,6 +10,8 @@ import javax.swing.JButton;
 
 /**
  *
+ * Nappien (eli ruutujen) tapahtumankuuntelija.
+ * 
  * @author hilla
  */
 public class KlikkausKuuntelija implements ActionListener {

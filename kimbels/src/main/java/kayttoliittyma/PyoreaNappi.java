@@ -13,6 +13,9 @@ import javax.swing.JButton;
 
 /**
  *
+ * 
+ * Pyöreä nappi.
+ * 
  * @author hilla
  */
 public class PyoreaNappi extends JButton {

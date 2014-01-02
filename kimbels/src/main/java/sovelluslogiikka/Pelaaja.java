@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 /**
  *
+ * Pelaaja. Tietää nimensä, värinsä ja nappulansa.
+ * 
  * @author hilla
  */
 public class Pelaaja {

@@ -6,6 +6,8 @@ package sovelluslogiikka;
 
 /**
  *
+ * Pelilaudan värit. Tietävät oman lähtöruutunsa.
+ * 
  * @author hilla
  */
 public enum VARI {

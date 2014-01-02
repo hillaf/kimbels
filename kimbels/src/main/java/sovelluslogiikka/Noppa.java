@@ -8,6 +8,9 @@ import java.util.Random;
 
 /**
  *
+ * 
+ * Noppa. Arpoo satunnaisen luvun väliltä 1-6.
+ * 
  * @author hilla
  */
 public class Noppa {
