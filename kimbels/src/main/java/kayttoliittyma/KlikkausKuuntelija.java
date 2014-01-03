@@ -24,7 +24,7 @@ public class KlikkausKuuntelija implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (this.nappi.onkoKlikattava()){
-            this.nappi.asetaKlikattavaksi();
+            this.nappi.klikattu();
         }
     }
     

@@ -21,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 import sovelluslogiikka.KimbleLogiikka;
 import sovelluslogiikka.Pelilauta;
+import sovelluslogiikka.Ruutu;
 import sovelluslogiikka.VARI;
 
 /**
@@ -37,19 +38,18 @@ public class Kayttoliittyma implements Runnable {
     private int x;
     private int y;
     private KimbleLogiikka logiikka;
-    private VARI kenenVuoro;
-    private JPanel vuoro;
+    private JLabel vuoroteksti;
 
     public Kayttoliittyma(KimbleLogiikka pelilauta) {
         this.logiikka = pelilauta;
-        this.kenenVuoro = VARI.SININEN;
     }
 
     @Override
     public void run() {
         this.frame = new JFrame("Kimbels 1.0");
         this.panel = new JPanel();
-        this.vuoro = new JPanel();
+        this.vuoroteksti = new JLabel();
+        this.frame.setBackground(Color.WHITE);
         this.frame.setLayout(new BorderLayout());
 
 
@@ -69,10 +69,11 @@ public class Kayttoliittyma implements Runnable {
 
     public void luoKomponentit() {
         this.panel.setBackground(Color.WHITE);
-        this.vuoro.setBackground(Color.WHITE);
-        this.vuoro.setLayout(new BorderLayout());
+        this.vuoroteksti.setBackground(Color.WHITE);
+        this.vuoroteksti.setLayout(new BorderLayout());
+        this.vuoroteksti.setPreferredSize(new Dimension(200,200));
         
-        this.vuoro.add(new JLabel("Vuoro: " + this.kenenVuoro), BorderLayout.NORTH);
+        this.vuoroteksti.setText("VUOROSSA: " + this.logiikka.kenenVuoro());
         
         
         luoNoppa();
@@ -80,16 +81,20 @@ public class Kayttoliittyma implements Runnable {
 
 
         this.frame.getContentPane().add(this.panel, BorderLayout.CENTER);
-        this.frame.getContentPane().add(vuoro, BorderLayout.EAST);
+        this.frame.getContentPane().add(vuoroteksti, BorderLayout.EAST);
     }
 
     public void luoNoppa() {
         JButton noppa = new PyoreaNappi(0, 0, Color.PINK, 50);
         noppa.setText("!");
-        noppa.addActionListener(new NopanKuuntelija(noppa, this.logiikka));
+        noppa.addActionListener(new NopanKuuntelija(noppa, this.logiikka, this.vuoroteksti, this));
         this.panel.add(noppa);
         noppa.setBounds(340, 290, 50, 50);
     }
+    
+    
+   
+ 
 
     public void piirraRuudut() {
 
@@ -132,25 +137,20 @@ public class Kayttoliittyma implements Runnable {
 
     public void luoRuutu(int xi, int yi, Color vari, int i) {
 
-        if (logiikka.onkoRuudussaNappula(i) == true) {
-            PyoreaNappi nappi = new PyoreaNappi(0, 0, vari);
-            nappi.piirraNappula();
-            nappi.addActionListener(new KlikkausKuuntelija(nappi));
-            this.panel.add(nappi);
-            nappi.setBounds(xi, yi, 40, 40);
-            System.out.println("debug: " + i + " ja nappula: " + logiikka.minkaVarinenNappula(i));
+            PyoreaNappi nappi = new PyoreaNappi(0, 0, vari, this.logiikka.getRuutu(i));
+            nappi.maarittele();
             
-            if (logiikka.minkaVarinenNappula(i).equals(this.kenenVuoro)){
-                nappi.asetaKlikattavaksi();
-                System.out.println("MUN VUORO debug: " + i + " ja nappula: " + logiikka.minkaVarinenNappula(i));
+            
+            if (logiikka.onkoRuudussaNappula(i) && logiikka.minkaVarinenNappula(i).equals(this.logiikka.kenenVuoro())){
+                this.logiikka.getRuutu(i).setOnkoValittava(true);
+            } else {
+                this.logiikka.getRuutu(i).setOnkoValittava(false);
             }
             
-        } else {
-            PyoreaNappi nappi = new PyoreaNappi(0, 0, vari);
             nappi.addActionListener(new KlikkausKuuntelija(nappi));
             this.panel.add(nappi);
             nappi.setBounds(xi, yi, 40, 40);
-        }
+          
 
     }
 
@@ -202,6 +202,8 @@ public class Kayttoliittyma implements Runnable {
             }
         }
     }    
+    
+   
     
 
     

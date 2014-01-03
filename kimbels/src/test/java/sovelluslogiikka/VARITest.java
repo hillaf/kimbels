@@ -56,10 +56,7 @@ public class VARITest {
         assertTrue(VARI.VIHREA.getLahtoruutu() == 28);
     }
 
-    @Test
-    public void neutraalinLahtoruutuOnMiinusyks() {
-        assertTrue(VARI.NEUTRAALI.getLahtoruutu() == -1);
-    }
+
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

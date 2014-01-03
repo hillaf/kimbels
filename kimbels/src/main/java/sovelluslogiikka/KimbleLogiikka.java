@@ -24,5 +24,8 @@ public interface KimbleLogiikka {
     VARI minkaVarinenNappula(int i);
     boolean onkoRuudussaNappula(int i);
     int heitaNoppaa();
+    VARI kenenVuoro();
+    void seuraavanVuoro();
+    Ruutu getRuutu(int i);
     
 }

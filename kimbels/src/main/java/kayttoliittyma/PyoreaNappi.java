@@ -10,12 +10,13 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import javax.swing.JButton;
+import sovelluslogiikka.Ruutu;
 
 /**
  *
- * 
+ *
  * Pyöreä nappi.
- * 
+ *
  * @author hilla
  */
 public class PyoreaNappi extends JButton {
@@ -25,16 +26,16 @@ public class PyoreaNappi extends JButton {
     private Color vari;
     private Color borderVari;
     private Shape shape;
-    private boolean sisaltaaNappulan;
-    int size;
+    private int size;
+    private Ruutu ruutu;
 
-    public PyoreaNappi(int x, int y, Color vari) {
+    public PyoreaNappi(int x, int y, Color vari, Ruutu ruutu) {
         this.x = x;
         this.y = y;
         this.vari = vari;
         this.borderVari = vari;
-        this.sisaltaaNappulan = false;
         this.size = 35;
+        this.ruutu = ruutu;
 
         setContentAreaFilled(false);
     }
@@ -44,7 +45,6 @@ public class PyoreaNappi extends JButton {
         this.y = y;
         this.vari = vari;
         this.borderVari = vari;
-        this.sisaltaaNappulan = false;
         this.size = size;
 
         setContentAreaFilled(false);
@@ -74,18 +74,18 @@ public class PyoreaNappi extends JButton {
     }
 
     public boolean onkoKlikattava() {
-        return this.sisaltaaNappulan;
-    }
-    
-    public void piirraNappula(){
-        this.borderVari = this.vari;
-        this.vari = Color.DARK_GRAY;
-    }
-    
-    public void asetaKlikattavaksi(){
-        this.sisaltaaNappulan = true;
-        this.borderVari = Color.BLACK;
+        return this.ruutu.onkoValittava();
     }
 
-  
+    public void klikattu() {
+        this.vari = Color.PINK;
+    }
+
+    public void maarittele() {
+        if (this.ruutu.getNappula() != null) {
+            this.borderVari = this.vari;
+            this.vari = Color.DARK_GRAY;
+        }
+    }
+
 }

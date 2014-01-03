@@ -85,11 +85,11 @@ public class PelilautaTest {
     @Test
     public void pelilautaEiLuoVarillisiaRengasruutuja() {
         this.pelilauta.luoRuudut();
-        assertTrue(this.pelilauta.getRengas().get(11).getVari().equals(VARI.NEUTRAALI));
-        assertTrue(this.pelilauta.getRengas().get(0).getVari().equals(VARI.NEUTRAALI));
-        assertTrue(this.pelilauta.getRengas().get(17).getVari().equals(VARI.NEUTRAALI));
-        assertTrue(this.pelilauta.getRengas().get(22).getVari().equals(VARI.NEUTRAALI));
-        assertTrue(this.pelilauta.getRengas().get(33).getVari().equals(VARI.NEUTRAALI));
+        assertTrue(this.pelilauta.getRengas().get(11).getVari() == null);
+        assertTrue(this.pelilauta.getRengas().get(0).getVari() == null);
+        assertTrue(this.pelilauta.getRengas().get(17).getVari() == null);
+        assertTrue(this.pelilauta.getRengas().get(22).getVari() == null);
+        assertTrue(this.pelilauta.getRengas().get(33).getVari() == null);
     }
 
     @Test
@@ -257,21 +257,11 @@ public class PelilautaTest {
 
     @Test
     public void noppaToimii() {
-        int luku = this.pelilauta.heitaNoppaa();
-        assertTrue(luku > 0 && luku < 7);
-        luku = this.pelilauta.heitaNoppaa();
-        assertTrue(luku > 0 && luku < 7);
-        luku = this.pelilauta.heitaNoppaa();
-        assertTrue(luku > 0 && luku < 7);
-        luku = this.pelilauta.heitaNoppaa();
-        assertTrue(luku > 0 && luku < 7);
-        luku = this.pelilauta.heitaNoppaa();
-        assertTrue(luku > 0 && luku < 7);
-        luku = this.pelilauta.heitaNoppaa();
-        assertTrue(luku > 0 && luku < 7);
-        luku = this.pelilauta.heitaNoppaa();
-        assertTrue(luku > 0 && luku < 7);
 
+        for (int i = 0; i < 10; i++) {
+            int luku = this.pelilauta.heitaNoppaa();
+            assertTrue(luku > 0 && luku < 7);
+        }
 
     }
 
@@ -305,6 +295,8 @@ public class PelilautaTest {
 
         assertTrue(this.pelilauta.minkaVarinenNappula(28).equals(this.pelilauta.getPelaajat().get(1).getVari()));
     }
+    
+
 
     @Test
     public void toisenNappulaSyodaan() {
@@ -315,10 +307,156 @@ public class PelilautaTest {
         this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 28);
         this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(1).getNappulat().get(0), 28);
         int matinAloitusruutu = this.pelilauta.getAloitusruudut().get(this.pelilauta.getPelaajat().get(0).getVari()).get(0);
-        
-        
+
         assertTrue(this.pelilauta.getPelaajat().get(0).getNappulat().get(0).getSijainti() == matinAloitusruutu);
     }
+
+    @Test
+    public void palauttaaAlussaOikeanVuoron() {
+        this.pelilauta.luoPelaajat(3, new ArrayList<String>());
+        assertTrue(this.pelilauta.kenenVuoro().equals(VARI.SININEN));
+    }
+
+    @Test
+    public void palauttaaKuudenVuoronJalkeenOikeanVuoron() {
+        this.pelilauta.luoPelaajat(4, new ArrayList<String>());
+
+        for (int i = 0; i < 6; i++) {
+            this.pelilauta.seuraavanVuoro();
+        }
+        assertTrue(this.pelilauta.kenenVuoro().equals(VARI.KELTAINEN));
+    }
+
+    @Test
+    public void getRuutuToimiiRenkaalle() {
+        assertTrue(this.pelilauta.getRuutu(14).equals(this.pelilauta.getRengas().get(14)));
+    }
+    
+    @Test
+    public void getRuutuPalauttaaNullJosEiIndeksia() {
+        assertTrue(this.pelilauta.getRuutu(65) == null);
+    }
+
+    @Test
+    public void getRuutuToimiiLahtoruuduille() {
+        assertTrue(this.pelilauta.getRuutu(55).equals(this.pelilauta.getLahtoruudut().get(55)));
+    }
+
+    @Test
+    public void getPelaajaToimii() {
+        this.pelilauta.luoPelaajat(3, new ArrayList<String>());
+        assertTrue(this.pelilauta.getPelaaja(VARI.SININEN).equals(this.pelilauta.getPelaajat().get(0)));
+    }
+    
+        @Test
+    public void getPelaajaPalauttaaNullJosEiPelaajia() {
+        assertTrue(this.pelilauta.getPelaaja(VARI.SININEN) == null);
+    }
+
+    @Test
+    public void setNappulatValittaviksiTrueToimii() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.setNappulatValittaviksi(VARI.PUNAINEN, true);
+
+        assertTrue(this.pelilauta.getRuutu(48).onkoValittava() == true);
+    }
+
+    @Test
+    public void setNappulatValittaviksiFalseToimii() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.setNappulatValittaviksi(VARI.SININEN, false);
+
+        assertTrue(this.pelilauta.getRuutu(45).onkoValittava() == false);
+    }
+
+    @Test
+    public void onkoRuudussaNappulaRengasTrueToimii() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 15);
+
+        assertTrue(this.pelilauta.onkoRuudussaNappula(15));
+    }
+
+    @Test
+    public void onkoRuudussaNappulaLahtoruutuTrueToimii() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+
+        assertTrue(this.pelilauta.onkoRuudussaNappula(44));
+    }
+
+    @Test
+    public void onkoRuudussaNappulaRengasFalseToimii() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+
+        assertTrue(this.pelilauta.onkoRuudussaNappula(15) == false);
+    }
+
+    @Test
+    public void onkoRuudussaNappulaLahtoruutuFalseToimii() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.poistaNappulaRuudusta(44);
+
+        assertTrue(this.pelilauta.onkoRuudussaNappula(44) == false);
+    }
+
+    @Test
+    public void minkaVarinenNappulaRuudussaAloitusruutuNull() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.poistaNappulaRuudusta(44);
+
+        assertTrue(this.pelilauta.minkaVarinenNappula(44) == null);
+    }
+
+    @Test
+    public void minkaVarinenNappulaRuudussaAloitusruutuSininen() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+
+        assertTrue(this.pelilauta.minkaVarinenNappula(44) == VARI.SININEN);
+    }
+
+    @Test
+    public void minkaVarinenNappulaRuudussaRengas() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 15);
+        assertTrue(this.pelilauta.minkaVarinenNappula(15) == VARI.SININEN);
+    }
+    
+    @Test
+    public void minkaVarinenNappulaIndeksiaEiOle() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 15);
+        assertTrue(this.pelilauta.minkaVarinenNappula(76) == null);
+    }
+    
+      @Test
+    public void minkaVarinenNappulaRuudussaEiNappulaa() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        assertTrue(this.pelilauta.minkaVarinenNappula(15) == null);
+    }
+
+    @Test
+    public void seuraavanVuoroAsettaaNappulatValittaviksiFalse() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.seuraavanVuoro();
+        assertTrue(this.pelilauta.getRuutu(44).onkoValittava() == false);
+    }
+
+    @Test
+    public void seuraavanVuoroAsettaaNappulatValittaviksiTrue() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        this.pelilauta.seuraavanVuoro();
+        assertTrue(this.pelilauta.getRuutu(49).onkoValittava() == true);
+    }
+
+    @Test
+    public void seuraavanVuoroKierrosOikein() {
+        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
+        for (int i = 0; i < 4; i++) {
+            this.pelilauta.seuraavanVuoro();
+        }
+        assertTrue(this.pelilauta.kenenVuoro().equals(VARI.SININEN));
+    }
+
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

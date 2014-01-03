@@ -11,7 +11,7 @@ package sovelluslogiikka;
  * @author hilla
  */
 public enum VARI {
-    SININEN(39), PUNAINEN(6), KELTAINEN(17), VIHREA(28), NEUTRAALI(-1);
+    SININEN(39), PUNAINEN(6), KELTAINEN(17), VIHREA(28);
     private int lahtoruutu;
 
         private VARI(int lahtoruutu) {

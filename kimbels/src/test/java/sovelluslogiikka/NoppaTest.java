@@ -41,36 +41,21 @@ public class NoppaTest {
 
     @Test
     public void noppaAntaaPositiivisenLuvun() {
-        int testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku > 0);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku > 0);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku > 0);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku > 0);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku > 0);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku > 0);
-        
-        
+
+        for (int i = 0; i < 20; i++) {
+            int testattavaLuku = noppa.heitaNoppaa();
+            assertTrue(testattavaLuku > 0);
+        }
+
     }
 
     @Test
     public void noppaAntaaLuvunPienempiKuinSeitseman() {
-        int testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku < 7);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku < 7);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku < 7);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku < 7);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku < 7);
-        testattavaLuku = noppa.heitaNoppaa();
-        assertTrue(testattavaLuku < 7);
+
+        for (int i = 0; i < 20; i++) {
+            int testattavaLuku = noppa.heitaNoppaa();
+            assertTrue(testattavaLuku < 7);
+        }
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

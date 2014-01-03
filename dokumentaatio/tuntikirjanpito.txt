@@ -38,3 +38,6 @@ vittua??) ja sekvenssikaaviot teen ihan just. Aika kurapäivä.
 
 2.2.2013 n. 2h
 Alkukyselyt luotu ja generoitu javadoc.
+
+3.1.2013 n. 3h
+Testaus ajan tasalle, käyttöliittymän siivoamista ja vähän uutta sovelluslogiikkaa.

@@ -33,7 +33,7 @@ public class RuutuTest {
 
     @Before
     public void setUp() {
-        this.ruutu = new Ruutu(2, VARI.NEUTRAALI);
+        this.ruutu = new Ruutu(2, null);
         this.pelaaja = new Pelaaja("Mikko", VARI.KELTAINEN);
     }
 
@@ -85,14 +85,33 @@ public class RuutuTest {
         this.ruutu.asetaNappulaRuutuun(nappula);
         assertTrue(nappula.getSijainti() == this.ruutu.getSijainti());
     }
-    
+
     @Test
-    public void poistaNappulaRuudusta(){
+    public void poistaNappulaRuudusta() {
         Nappula nappula = new Nappula(this.pelaaja, 1);
         this.ruutu.asetaNappulaRuutuun(nappula);
         this.ruutu.poistaNappulaRuudusta();
         assertTrue(this.ruutu.getNappula() == null);
     }
+
+    @Test
+    public void asetaValittavaksiTrue() {
+        this.ruutu.setOnkoValittava(true);
+        assertTrue(this.ruutu.onkoValittava());
+    }
+
+    @Test
+    public void valittavuusAlussaFalse() {
+        assertTrue(this.ruutu.onkoValittava() == false);
+    }
+
+    @Test
+    public void asetaValittavaksiFalse() {
+        this.ruutu.setOnkoValittava(true);
+        this.ruutu.setOnkoValittava(false);
+        assertTrue(this.ruutu.onkoValittava() == false);
+    }
+
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

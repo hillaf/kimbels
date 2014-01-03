@@ -18,11 +18,13 @@ public class Ruutu {
     private int sijainti;
     private Nappula nappula;
     private VARI vari;
+    private boolean onkoValittava;
     
 
     public Ruutu(int sijainti, VARI vari){
         this.sijainti = sijainti;
         this.vari = vari;
+        this.onkoValittava = false;
     }
     
     
@@ -53,4 +55,14 @@ public class Ruutu {
     public VARI getVari(){
         return this.vari;
     }
+    
+    public boolean onkoValittava(){
+        return this.onkoValittava;
+    }
+    
+    public void setOnkoValittava(boolean bool){
+        this.onkoValittava = bool;
+    }
+    
+   
 }
