@@ -21,8 +21,8 @@ public class App {
 
 
         
-        Peliaction peliaction = new Peliaction();
-        SwingUtilities.invokeLater(peliaction);
+        Peliaction action = new Peliaction();
+        SwingUtilities.invokeLater(action);
 
 
 

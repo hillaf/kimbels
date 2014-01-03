@@ -77,12 +77,15 @@ public class PyoreaNappi extends JButton {
         return this.sisaltaaNappulan;
     }
     
+    public void piirraNappula(){
+        this.borderVari = this.vari;
+        this.vari = Color.DARK_GRAY;
+    }
+    
     public void asetaKlikattavaksi(){
         this.sisaltaaNappulan = true;
         this.borderVari = Color.BLACK;
     }
 
-    public void klikattu() {
-        this.borderVari = Color.BLACK;
-    }
+  
 }

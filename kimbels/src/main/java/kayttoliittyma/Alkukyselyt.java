@@ -81,4 +81,8 @@ public class Alkukyselyt implements Runnable {
         this.frame.getContentPane().add(pelataan, BorderLayout.SOUTH);
         
     }
+    
+    public void setPelaajienMaara(int pelaajia){
+        this.action.setPelaajienMaara(pelaajia);
+    }
 }

@@ -10,11 +10,14 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 import sovelluslogiikka.KimbleLogiikka;
 import sovelluslogiikka.Pelilauta;
@@ -34,15 +37,19 @@ public class Kayttoliittyma implements Runnable {
     private int x;
     private int y;
     private KimbleLogiikka logiikka;
+    private VARI kenenVuoro;
+    private JPanel vuoro;
 
     public Kayttoliittyma(KimbleLogiikka pelilauta) {
         this.logiikka = pelilauta;
+        this.kenenVuoro = VARI.SININEN;
     }
 
     @Override
     public void run() {
         this.frame = new JFrame("Kimbels 1.0");
         this.panel = new JPanel();
+        this.vuoro = new JPanel();
         this.frame.setLayout(new BorderLayout());
 
 
@@ -55,15 +62,25 @@ public class Kayttoliittyma implements Runnable {
         this.frame.pack();
         this.frame.setVisible(true);
     }
+    
+ 
+    
+   
 
     public void luoKomponentit() {
         this.panel.setBackground(Color.WHITE);
-
+        this.vuoro.setBackground(Color.WHITE);
+        this.vuoro.setLayout(new BorderLayout());
+        
+        this.vuoro.add(new JLabel("Vuoro: " + this.kenenVuoro), BorderLayout.NORTH);
+        
+        
         luoNoppa();
         piirraRuudut();
 
 
-        this.frame.getContentPane().add(this.panel);
+        this.frame.getContentPane().add(this.panel, BorderLayout.CENTER);
+        this.frame.getContentPane().add(vuoro, BorderLayout.EAST);
     }
 
     public void luoNoppa() {
@@ -91,10 +108,11 @@ public class Kayttoliittyma implements Runnable {
         piirraRuudutVarille(Color.BLUE, 190, 140, true, true, 40);
 
         //lähtöruudut
-        piirraRuudutVarille(Color.RED, 50, 480, true, true, 44);
-        piirraRuudutVarille(Color.YELLOW, 650, 480, false, true, 48);
-        piirraRuudutVarille(Color.GREEN, 650, 120, false, false, 52);
-        piirraRuudutVarille(Color.BLUE, 50, 120, true, false, 56);
+        piirraRuudutVarille(Color.BLUE, 50, 120, true, false, 44);
+        piirraRuudutVarille(Color.RED, 50, 480, true, true, 48);
+        piirraRuudutVarille(Color.YELLOW, 650, 480, false, true, 52);
+        piirraRuudutVarille(Color.GREEN, 650, 120, false, false, 56);
+        
 
     }
 
@@ -116,10 +134,17 @@ public class Kayttoliittyma implements Runnable {
 
         if (logiikka.onkoRuudussaNappula(i) == true) {
             PyoreaNappi nappi = new PyoreaNappi(0, 0, vari);
-            nappi.asetaKlikattavaksi();
+            nappi.piirraNappula();
             nappi.addActionListener(new KlikkausKuuntelija(nappi));
             this.panel.add(nappi);
             nappi.setBounds(xi, yi, 40, 40);
+            System.out.println("debug: " + i + " ja nappula: " + logiikka.minkaVarinenNappula(i));
+            
+            if (logiikka.minkaVarinenNappula(i).equals(this.kenenVuoro)){
+                nappi.asetaKlikattavaksi();
+                System.out.println("MUN VUORO debug: " + i + " ja nappula: " + logiikka.minkaVarinenNappula(i));
+            }
+            
         } else {
             PyoreaNappi nappi = new PyoreaNappi(0, 0, vari);
             nappi.addActionListener(new KlikkausKuuntelija(nappi));
@@ -176,8 +201,7 @@ public class Kayttoliittyma implements Runnable {
                 yr -= 40;
             }
         }
-    }
-    
+    }    
     
 
     

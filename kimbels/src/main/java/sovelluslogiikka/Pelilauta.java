@@ -164,7 +164,7 @@ public class Pelilauta implements KimbleLogiikka {
      * Metodi palauttaa ruudussa olevan nappulan värin. Metodi saa parametrina
      * ruudun indeksin.
      *
-     * @param int parametrina ruudun indeksi
+     * @param i parametrina ruudun indeksi
      *
      * @return VARI minkä värinen nappula ruudussa
      */

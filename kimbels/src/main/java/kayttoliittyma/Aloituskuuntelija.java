@@ -49,7 +49,7 @@ public class Aloituskuuntelija implements ActionListener {
             this.pelaajienMaara = 4;
         }
         
-        this.action.setPelaajienMaara(this.pelaajienMaara);
+        this.action.setPelaajienMaara(pelaajienMaara);
         
     }
    

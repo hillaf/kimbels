@@ -15,7 +15,6 @@ public class Peliaction implements Runnable {
     
     private Kayttoliittyma kayttoliittyma;
     private Alkukyselyt kyselyt;
-    private int pelaajienMaara;
     private Pelilauta pelilauta;
     
     public Peliaction(){
@@ -34,6 +33,9 @@ public class Peliaction implements Runnable {
         this.pelilauta.luoRuudut();
         this.pelilauta.luoPelaajat(maara, new ArrayList<String>());
         this.kayttoliittyma.run();
+        
     }
+    
+    
     
 }
