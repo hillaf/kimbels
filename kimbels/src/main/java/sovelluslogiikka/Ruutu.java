@@ -7,19 +7,41 @@ package sovelluslogiikka;
 /**
  *
  * 
- * Pelilaudan yksi ruutu. Voi olla lähtö- tai maaliruutu tai tavallinen ruutu. Tavalliset ruudut väriltään neutraaleja. 
- * Tietää oman värinsä ja sijaintinsa. Saattaa sisältää nappulan - jos ei, nappula == null.
+ * Pelilaudan yksi ruutu. Voi olla lähtö- tai maaliruutu tai tavallinen ruutu. 
+ * Tavalliset ruudut väriltään null. Tietää oman värinsä ja sijaintinsa. 
+ * Saattaa sisältää nappulan - jos ei, nappula == null.
  * 
  * 
  * @author hilla
  */
 public class Ruutu {
  
+    /**
+     * Ruudun sijainti indeksinä väliltä 0-59.
+     */
     private int sijainti;
-    private Nappula nappula;
-    private VARI vari;
-    private boolean onkoValittava;
     
+    /**
+     * Ruudun sisältämä nappula. Jos ei nappulaa, niin nappula == null;
+     */
+    private Nappula nappula;
+    
+    /**
+     * Ruudun väri. Jos neutraali, niin vari == null;
+     */
+    private VARI vari;
+    
+    /**
+     * Onko ruutu aktiivinen. Eli onko ruudussa nappula, joka kuuluu pelaajalle,
+     * jolla on tällä hetkellä pelivuoro. Oletuksena false.
+     */
+    private boolean onkoValittava;
+
+    /**
+     * 
+     * @param sijainti ruudun indeksi
+     * @param vari ruudun mahdollinen väri, null jos neutraali
+     */
 
     public Ruutu(int sijainti, VARI vari){
         this.sijainti = sijainti;
@@ -27,6 +49,12 @@ public class Ruutu {
         this.onkoValittava = false;
     }
     
+    /**
+     * Asettaa nappulan ruutuun.
+     * 
+     * @param nappula nappula joka ruutuun asetetaan
+     * @return palauttaa true jos asettaminen onnistui, false muuten
+     */
     
     public boolean asetaNappulaRuutuun(Nappula nappula){
         
@@ -39,6 +67,8 @@ public class Ruutu {
         }
         
     }
+    
+  
     
     public void poistaNappulaRuudusta(){
         this.nappula = null;
@@ -59,6 +89,12 @@ public class Ruutu {
     public boolean onkoValittava(){
         return this.onkoValittava;
     }
+    
+    /**
+     * 
+     * @param bool true jos asetetaan valittavaksi, false jos poistetaan
+     * valittaavuus
+     */
     
     public void setOnkoValittava(boolean bool){
         this.onkoValittava = bool;

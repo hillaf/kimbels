@@ -1,21 +1,31 @@
 Aihe: Kimble
 
 Toteutetaan ihan superpäräyttävä Kimble-peli, jossa vain vahvat ja rohkeat pärjäävät.
-Taidon merkitystä ei voi liikaa korostaa tässä jännitysnäytelmässä, jossa kukin 2-4 
+Taidon merkitystä ei voi liikaa korostaa tässä jännitysnäytelmässä, jossa kukin 1-4 
 pelaajasta heittää vuorollaan noppaa ja liikkuu nappuloineen pelilaudalla pyrkien 
 saamaan kaikki omat nappulansa maaliruutuihin. Uuden nappulan saa liikkeelle kotipesästä
 vain silmäluvulla 6 ja maaliruutuun on saavuttava tasaluvulla. Mikäli pelaajan nappula 
 osuu vastapelaajan nappulan varaamaan ruutuun, vastapelaajan nappula palautuu kotipesään.
-Mikäli ylimääräistä aikaa jää, toteutetaan peliin myös juomapelisäännöt ja ylimääräistä
-satunnaisuutta.
+Mikäli ylimääräistä aikaa jää, toteutetaan peliin myös huikea äänimaisema sekä peliin
+lisäkannustetta tuova juomapelisäännöistä muistuttava toiminnallisuus.
 
-Käyttäjät: 2-4 pelaajaa
+Käyttäjät: 1-4 pelaajaa
+
 
 Kaikkien käyttäjien toiminnot:
+
 - nopan heittäminen
+	- onnistuu jos oma vuoro
+
 - nappulan siirtäminen laudalla
-	- onnistuu jos oma nappula ei ole tiellä
+	- esiehto: nopan heittäminen
+	- oma nappula ei ole tiellä
+
 - uuden nappulan lähdättäminen
+	- esiehto: nopan heittäminen
 	- onnistuu jos silmäluku 6
+
 - vastustajan nappula palautuu kotipesään
+	- esiehdot: nopan heittäminen, nappulan siirtäminen laudalla tai uuden
+	  nappulan lähdättäminen
 	- onnistuu jos oma nappula osuu vastustajan nappulan varaamaan ruutuun

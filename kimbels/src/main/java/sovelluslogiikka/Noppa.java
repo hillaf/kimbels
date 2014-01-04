@@ -21,6 +21,12 @@ public class Noppa {
         this.arpoja = new Random();
     }
     
+    /**
+     * Arpoo luvun väliltä 1-6.
+     * 
+     * @return palauttaa arvotun luvun int-tyyppisenä muuttujana
+     */
+    
     public int heitaNoppaa(){
         
         int arvottuLuku = arpoja.nextInt(6);
