@@ -38,22 +38,22 @@ public class VARITest {
 
     @Test
     public void sinisenLahtoruutuOn39() {
-        assertTrue(VARI.SININEN.getLahtoruutu() == 39);
+        assertTrue(VARI.SININEN.getLahtoruutu() == 0);
     }
 
     @Test
     public void punaisenLahtoruutuOnKuusi() {
-        assertTrue(VARI.PUNAINEN.getLahtoruutu() == 6);
+        assertTrue(VARI.PUNAINEN.getLahtoruutu() == 11);
     }
 
     @Test
     public void keltaisenLahtoruutuOn17() {
-        assertTrue(VARI.KELTAINEN.getLahtoruutu() == 17);
+        assertTrue(VARI.KELTAINEN.getLahtoruutu() == 22);
     }
 
     @Test
     public void vihreanLahtoruutuOn28s() {
-        assertTrue(VARI.VIHREA.getLahtoruutu() == 28);
+        assertTrue(VARI.VIHREA.getLahtoruutu() == 33);
     }
 
 

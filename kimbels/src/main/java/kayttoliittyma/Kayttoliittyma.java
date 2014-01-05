@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -35,6 +36,7 @@ public class Kayttoliittyma implements Runnable {
 
     private JFrame frame;
     private JPanel panel;
+    private HashMap<Integer, PyoreaNappi> nappilista;
     private int x;
     private int y;
     private KimbleLogiikka logiikka;
@@ -49,6 +51,7 @@ public class Kayttoliittyma implements Runnable {
         this.frame = new JFrame("Kimbels 1.0");
         this.panel = new JPanel();
         this.vuoroteksti = new JLabel();
+        this.nappilista = new HashMap<Integer, PyoreaNappi>();
         this.frame.setBackground(Color.WHITE);
         this.frame.setLayout(new BorderLayout());
 
@@ -71,9 +74,8 @@ public class Kayttoliittyma implements Runnable {
         this.panel.setBackground(Color.WHITE);
         this.vuoroteksti.setBackground(Color.WHITE);
         this.vuoroteksti.setLayout(new BorderLayout());
-        this.vuoroteksti.setPreferredSize(new Dimension(200,200));
+        this.vuoroteksti.setPreferredSize(new Dimension(280,200));
         
-        this.vuoroteksti.setText("VUOROSSA: " + this.logiikka.kenenVuoro());
         
         
         luoNoppa();
@@ -98,7 +100,7 @@ public class Kayttoliittyma implements Runnable {
 
     public void piirraRuudut() {
 
-
+        this.vuoroteksti.setText("VUOROSSA: " + this.logiikka.kenenVuoro() + ", edellinen heitto: " + this.logiikka.silmalukuNyt());
         this.x = 100;
         this.y = 150;
 
@@ -137,8 +139,9 @@ public class Kayttoliittyma implements Runnable {
 
     public void luoRuutu(int xi, int yi, Color vari, int i) {
 
-            PyoreaNappi nappi = new PyoreaNappi(0, 0, vari, this.logiikka.getRuutu(i));
+            PyoreaNappi nappi = new PyoreaNappi(0, 0, vari, this.logiikka.getRuutu(i), this.logiikka, Kayttoliittyma.this, i);
             nappi.maarittele();
+            this.nappilista.put(i, nappi);
             
             
             if (logiikka.onkoRuudussaNappula(i) && logiikka.minkaVarinenNappula(i).equals(this.logiikka.kenenVuoro())){
@@ -147,7 +150,7 @@ public class Kayttoliittyma implements Runnable {
                 this.logiikka.getRuutu(i).setOnkoValittava(false);
             }
             
-            nappi.addActionListener(new KlikkausKuuntelija(nappi));
+            nappi.addActionListener(new KlikkausKuuntelija(nappi, this));
             this.panel.add(nappi);
             nappi.setBounds(xi, yi, 40, 40);
           
@@ -202,6 +205,19 @@ public class Kayttoliittyma implements Runnable {
             }
         }
     }    
+    
+    public void paivitaVuoroteksti(){
+        this.vuoroteksti.setText("VUOROSSA: " + this.logiikka.kenenVuoro() + ", viimeksi heitetty: " + this.logiikka.silmalukuNyt());
+    }
+    
+    public JPanel getPelilauta(){
+        return this.panel;
+    }
+    
+  
+    public HashMap<Integer, PyoreaNappi> getNappilista(){
+        return this.nappilista;
+    }
     
    
     

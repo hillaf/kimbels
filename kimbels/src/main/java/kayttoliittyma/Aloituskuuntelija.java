@@ -21,14 +21,17 @@ public class Aloituskuuntelija implements ActionListener {
     private JRadioButton c;
     private JRadioButton d;
     private Peliaction action;
+    private JButton button;
 
-    public Aloituskuuntelija(JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, Peliaction action) {
+    
+    public Aloituskuuntelija(JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, Peliaction action, JButton button) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
         this.pelaajienMaara = 0;
         this.action = action;
+        this.button = button;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class Aloituskuuntelija implements ActionListener {
         }
         
         this.action.setPelaajienMaara(pelaajienMaara);
-        
+        this.button.removeActionListener(this);
     }
    
 }

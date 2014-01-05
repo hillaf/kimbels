@@ -20,94 +20,85 @@ import static sovelluslogiikka.VARI.*;
  * @author hilla
  */
 public class Pelilauta implements KimbleLogiikka {
-    
+
     /**
-     * Pelilaudan neutraalit ruudut ja maaliruudut. Avaimena integer väliltä 0-43, joka on 
-     * ruudun indeksi. Tietyt indeksit tiettyjen värien maaliruutuja:
+     * Pelilaudan neutraalit ruudut ja maaliruudut. Avaimena integer väliltä
+     * 0-43, joka on ruudun indeksi. Tietyt indeksit tiettyjen värien
+     * maaliruutuja:
      *
-     * 7-10 SININEN
-     * 18-21 PUNAINEN
-     * 29-32 KELTAINEN
-     * 40-43 VIHREA
+     * 7-10 SININEN 18-21 PUNAINEN 29-32 KELTAINEN 40-43 VIHREA
      */
     private HashMap<Integer, Ruutu> rengas;
-    
+
     /**
-     * Lista pelaajista. 
-     * 0 = SININEN
-     * 1 = PUNAINEN
-     * 2 = KELTAINEN
-     * 3 = VIHREA
-     * 
+     * Lista pelaajista. 0 = SININEN 1 = PUNAINEN 2 = KELTAINEN 3 = VIHREA
+     *
      */
     private ArrayList<Pelaaja> pelaajat;
     /**
-    * Lähtöruudut. Avaimena integer, joka on ruudun indeksi.
-    * 
-    * 44-47 SININEN
-    * 48-51 PUNAINEN
-    * 52-55 KELTAINEN
-    * 56-59 VIHREA
-    * 
-    */
-    private HashMap<Integer, Ruutu> lahtoruudut;
-    
-    /**
-    * Noppa. Arpoo satunnaisia lukuja 1-6.
-    */
-    private Noppa noppa;
-    
-    /**
-     * Lista pelaajien mahdollisista väreistä. 
-     * 
-     * 0 = SININEN
-     * 1 = PUNAINEN
-     * 2 = KELTAINEN
-     * 3 = VIHREA
-     * 
+     * Lähtöruudut. Avaimena integer, joka on ruudun indeksi.
+     *
+     * 44-47 SININEN 48-51 PUNAINEN 52-55 KELTAINEN 56-59 VIHREA
+     *
      */
-    private ArrayList<VARI> varit;
-    
+    private HashMap<Integer, Ruutu> lahtoruudut;
+
     /**
-     * Lähtöruudut. Avaimena väri, joka viittaa listaan lähtöruutujen 
+     * Noppa. Arpoo satunnaisia lukuja 1-6.
+     */
+    private Noppa noppa;
+
+    /**
+     * Lista pelaajien mahdollisista väreistä.
+     *
+     * 0 = SININEN 1 = PUNAINEN 2 = KELTAINEN 3 = VIHREA
+     *
+     */
+    private HashMap<Integer, VARI> varit;
+
+    /**
+     * Lähtöruudut. Avaimena väri, joka viittaa listaan lähtöruutujen
      * indekseistä.
      */
     private HashMap<VARI, ArrayList<Integer>> aloitusruudut;
-    
+
     /**
      * Väri, jonka vuoro tällä hetkellä on.
      */
     private VARI kenenVuoro;
 
     /**
-     * Konstruktorissa alustetaan muuttujat ja asetetaan aloitusvuoro 
-     * siniselle. Lisätään myös värit listaan.
+     * Viimeksi heitetty nopan silmäluku;
      */
-    
+    private int silmalukuNyt;
+
+    /**
+     * Konstruktorissa alustetaan muuttujat ja asetetaan aloitusvuoro siniselle.
+     * Lisätään myös värit listaan.
+     */
     public Pelilauta() {
         this.rengas = new HashMap<Integer, Ruutu>();
         this.lahtoruudut = new HashMap<Integer, Ruutu>();
         this.pelaajat = new ArrayList<Pelaaja>();
         this.noppa = new Noppa();
-        this.varit = new ArrayList<VARI>();
+        this.varit = new HashMap<Integer, VARI>();
         this.aloitusruudut = new HashMap<VARI, ArrayList<Integer>>();
-        this.kenenVuoro = SININEN;
+        this.kenenVuoro = VARI.SININEN;
 
-        varit.add(VARI.SININEN);
-        varit.add(VARI.PUNAINEN);
-        varit.add(VARI.KELTAINEN);
-        varit.add(VARI.VIHREA);
+        varit.put(0, VARI.SININEN);
+        varit.put(1, VARI.PUNAINEN);
+        varit.put(2, VARI.KELTAINEN);
+        varit.put(3, VARI.VIHREA);
 
     }
-    
-    /**
-     * Huolehtii ruutujen luomisen hallinnoinnista. Luo neutraalit ruudut ja 
-     * maaliruudut ja kutsuu metodia luoLahtoruudut().
-     * 
-     * @see luoLahtoruudut()
-     * 
-     */
 
+    /**
+     * Huolehtii ruutujen luomisen hallinnoinnista. Luo neutraalit ruudut ja
+     * maaliruudut ja kutsuu metodia luoLahtoruudut().
+     *
+     * @see luoLahtoruudut()
+     *
+     */
     @Override
     public void luoRuudut() {
 
@@ -133,13 +124,12 @@ public class Pelilauta implements KimbleLogiikka {
     }
 
     /**
-     * 
+     *
      * Luo lähtöruudut parametrina annetulle värille.
-     * 
+     *
      * @param alkuindeksi värin ensimmäinen lähtöruutu
      * @param vari väri jolle lähtöruudut luodaan
      */
-    
     public void luoLahtoruudutVarille(int alkuindeksi, VARI vari) {
         ArrayList<Integer> lista = new ArrayList<Integer>();
 
@@ -153,10 +143,9 @@ public class Pelilauta implements KimbleLogiikka {
 
     /**
      * Hallinnoi lähtöruutujen luontia.
-     * 
+     *
      * @see LuoLahtoruudutVarille()
      */
-    
     public void luoLahtoruudut() {
 
         luoLahtoruudutVarille(44, VARI.SININEN);
@@ -166,51 +155,39 @@ public class Pelilauta implements KimbleLogiikka {
 
     }
 
-    
     /**
-     * 
-     * Luo peliin pelaajat. Pelaajia luodaan 0-4 riippuen parametrista. 
-     * Pelaajien luonti alkaa värillä SININEN.
-     * Kutsuu jokaiselle pelaajalle metodia luoNappulat()
-     * 
+     *
+     * Luo peliin pelaajat. Pelaajia luodaan 0-4 riippuen parametrista.
+     * Pelaajien luonti alkaa värillä SININEN. Kutsuu jokaiselle pelaajalle
+     * metodia luoNappulat()
+     *
      * @see luoNappulat()
      * @param pelaajienMaara montako pelaajaa luodaan
      * @param nimet pelaajien nimet ArrayListinä - toiminnallisuus kesken!
      */
-    
     @Override
     public void luoPelaajat(int pelaajienMaara, ArrayList<String> nimet) {
-        int i = 0;
 
-        for (VARI vari : VARI.values()) {
-
-            if (i < pelaajienMaara) {
-                if (nimet.size() <= i) {
-                    Pelaaja pelaaja = new Pelaaja(vari);
-                    this.pelaajat.add(pelaaja);
-                    luoNappulat(pelaaja);
-                } else {
-                    Pelaaja pelaaja = new Pelaaja(nimet.get(i), vari);
-                    this.pelaajat.add(pelaaja);
-                    luoNappulat(pelaaja);
-                }
-                i++;
-            }
-
+        if (pelaajienMaara > 4) {
+            pelaajienMaara = 4;
         }
 
+        for (int j = 0; j < pelaajienMaara; j++) {
+            Pelaaja pelaaja = new Pelaaja(this.varit.get(j));
+            this.pelaajat.add(pelaaja);
+            luoNappulat(pelaaja);
+        }
     }
-    
+
     /**
-     * 
-     * Luo 4 nappulaa parametrina annetulle pelaajalle. Kutsuu metodia 
+     *
+     * Luo 4 nappulaa parametrina annetulle pelaajalle. Kutsuu metodia
      * asetaNappulatAloitusruutuihin ja asettaa nappulat pelaajalle.
-     * 
+     *
      * @see asetaNappulatAloitusruutuihin()
-     * 
+     *
      * @param pelaaja pelaaja jolle nappulat luodaan
      */
-
     public void luoNappulat(Pelaaja pelaaja) {
 
         ArrayList<Nappula> nappulat = new ArrayList<Nappula>();
@@ -223,16 +200,15 @@ public class Pelilauta implements KimbleLogiikka {
         asetaNappulatAloitusruutuihin(nappulat, pelaaja.getVari());
         pelaaja.setNappulat(nappulat);
     }
-    
+
     /**
-     * 
-     * Asettaa parametrina annetut nappulat parametrina annetun värin 
+     *
+     * Asettaa parametrina annetut nappulat parametrina annetun värin
      * aloitusruutuihin.
-     * 
+     *
      * @param nappulat mitkä nappulat asetetaan
      * @param vari minkä värin aloitusruutuihin
      */
-
     public void asetaNappulatAloitusruutuihin(ArrayList<Nappula> nappulat, VARI vari) {
         int i = 0;
 
@@ -244,26 +220,46 @@ public class Pelilauta implements KimbleLogiikka {
 
     // tää on superkesken ja aika olennainen!
     @Override
-    public boolean siirraNappulaa(Nappula nappula, int askeleita) {
+    public int siirraNappulaa(Nappula nappula, int askeleita) {
 
         VARI verrokkivari = nappula.getPelaaja().getVari();
         int sijaintiNyt = nappula.getSijainti();
-
         int tutkittavaSijainti = sijaintiNyt + askeleita;
 
-        if (tutkittavaSijainti > 43) {
-            return false;
+        if (sijaintiNyt > 43 && this.silmalukuNyt == 6) {
+            return siirraAloitusruudusta(nappula);
         } else {
+            if (tutkittavaSijainti > 43) {
+                seuraavanVuoro();
+                return -1;
+            } else {
 
-            Ruutu tutkittavaRuutu = this.rengas.get(tutkittavaSijainti);
+                Ruutu tutkittavaRuutu = this.rengas.get(tutkittavaSijainti);
 
-            if (verrokkivari.equals(tutkittavaRuutu.getVari()) || tutkittavaRuutu.getVari() == null) {
-                return true;
+                if (tutkittavaRuutu.getVari() == null || verrokkivari.equals(tutkittavaRuutu.getVari())) {
+                    siirraNappulaRuutuun(nappula, tutkittavaSijainti);
+                    return tutkittavaSijainti;
+                }
             }
         }
 
-        return false;
+        seuraavanVuoro();
+        return -1;
 
+    }
+
+    public int siirraAloitusruudusta(Nappula nappula) {
+
+        int siirrettavaIndeksi = nappula.getPelaaja().getVari().getLahtoruutu();
+        siirraNappulaRuutuun(nappula, siirrettavaIndeksi);
+        return siirrettavaIndeksi;
+
+    }
+
+    @Override
+    public void setSiirtoVuoro(VARI vuorossa, int silmaluku) {
+        this.kenenVuoro = vuorossa;
+        this.silmalukuNyt = silmaluku;
     }
 
     /**
@@ -272,7 +268,7 @@ public class Pelilauta implements KimbleLogiikka {
      *
      * @param i parametrina ruudun indeksi
      *
-     * @return VARI minkä värinen nappula ruudussa - palauttaa null mikäli 
+     * @return VARI minkä värinen nappula ruudussa - palauttaa null mikäli
      * indeksiä ei löydy
      */
     @Override
@@ -299,25 +295,26 @@ public class Pelilauta implements KimbleLogiikka {
             Ruutu sijoitettava = this.rengas.get(indeksi);
             poistaNappulaRuudusta(nappula.getSijainti());
             sijoitettava.asetaNappulaRuutuun(nappula);
-        } else {
-            if (!minkaVarinenNappula(indeksi).equals(nappula.getPelaaja().getVari())) {
-                siirraLahtoruutuun(this.rengas.get(indeksi).getNappula());
-                Ruutu sijoitettava = this.rengas.get(indeksi);
-                poistaNappulaRuudusta(nappula.getSijainti());
-                sijoitettava.asetaNappulaRuutuun(nappula);
-            }
-        }
+//        } else {
+//            if (!minkaVarinenNappula(indeksi).equals(nappula.getPelaaja().getVari())) {
+//                siirraLahtoruutuun(this.rengas.get(indeksi).getNappula());
+//                Ruutu sijoitettava = this.rengas.get(indeksi);
+//                poistaNappulaRuudusta(nappula.getSijainti());
+//                sijoitettava.asetaNappulaRuutuun(nappula);
+//            }
+//        }
 
+            seuraavanVuoro();
+        }
     }
 
     /**
-     * 
-     * Poistaa nappulan ruudusta, joka liittyy parametrina annettuun indeksiin. 
+     *
+     * Poistaa nappulan ruudusta, joka liittyy parametrina annettuun indeksiin.
      * Mikäli indeksiä ei löydy, ei poisteta mitään.
-     * 
+     *
      * @param indeksi mistä indeksistä poistetaan nappula
      */
-    
     public void poistaNappulaRuudusta(int indeksi) {
         if (this.rengas.containsKey(indeksi)) {
             this.rengas.get(indeksi).poistaNappulaRuudusta();
@@ -329,15 +326,13 @@ public class Pelilauta implements KimbleLogiikka {
     }
 
     /**
-     * 
-     * Palauttaa boolean-arvon, joka kertoo onko parametrina annetussa 
-     * indeksissä nappulaa.
-     * Palauttaa false, mikäli indeksiä ei löydy.
-     * 
+     *
+     * Palauttaa boolean-arvon, joka kertoo onko parametrina annetussa
+     * indeksissä nappulaa. Palauttaa false, mikäli indeksiä ei löydy.
+     *
      * @param i indeksi johon liittyvää ruutua tutkitaan
      * @return true mikäli indeksin ruudusta löytyy nappula, muuten false
      */
-    
     @Override
     public boolean onkoRuudussaNappula(int i) {
 
@@ -358,37 +353,45 @@ public class Pelilauta implements KimbleLogiikka {
     }
 
     /**
-     * 
-     * Siirtää vuoron seuraavalle pelaajalle. Kutsuu metodia 
-     * setNappulatValittaviksi kahdesti, edellisen vuoron vuorossaolleelle 
+     *
+     * Siirtää vuoron seuraavalle pelaajalle. Kutsuu metodia
+     * setNappulatValittaviksi kahdesti, edellisen vuoron vuorossaolleelle
      * pelaajalle ja uuden vuoron pelaajalle. Huomioi pelaajien määrän.
-     * 
+     *
      * @see setNappulatValittaviksi(VARI, boolean)
-     * 
+     *
      */
-    
     @Override
     public void seuraavanVuoro() {
 
         setNappulatValittaviksi(this.kenenVuoro, false);
-        int variIndeksi = 0;
+        int max = this.pelaajat.size() - 1;
+        int i = 0;
 
-        for (int i = 0; i < this.varit.size(); i++) {
-            if (this.varit.get(i).equals(this.kenenVuoro)) {
-                variIndeksi = i;
-            }
+        if (this.kenenVuoro.equals(VARI.SININEN)) {
+            this.kenenVuoro = VARI.PUNAINEN;
+            i = 1;
+        } else if (this.kenenVuoro.equals(VARI.PUNAINEN)) {
+            this.kenenVuoro = VARI.KELTAINEN;
+            i = 2;
+        } else if (this.kenenVuoro.equals(VARI.KELTAINEN)) {
+            this.kenenVuoro = VARI.VIHREA;
+            i = 3;
+        } else if (this.kenenVuoro.equals(VARI.VIHREA)) {
+            this.kenenVuoro = VARI.SININEN;
+            i = 0;
         }
 
-        if (pelaajat.size() <= variIndeksi + 1) {
-            this.kenenVuoro = SININEN;
-        } else {
-            this.kenenVuoro = this.varit.get(variIndeksi + 1);
+        if (i > max) {
+            this.kenenVuoro = VARI.SININEN;
         }
 
+        System.out.println(this.kenenVuoro);
         setNappulatValittaviksi(this.kenenVuoro, true);
 
     }
 
+    // ei valmis
     @Override
     public void siirraLahtoruutuun(Nappula nappula) {
 
@@ -396,28 +399,30 @@ public class Pelilauta implements KimbleLogiikka {
         int sijaintiEnnen = nappula.getSijainti();
 
         for (Integer integer : this.aloitusruudut.get(nappula.getPelaaja().getVari())) {
-            if (jatkuu == true && this.lahtoruudut.get(integer).asetaNappulaRuutuun(nappula) == true) {
+            if (jatkuu == true) {
                 this.rengas.get(sijaintiEnnen).poistaNappulaRuudusta();
                 jatkuu = false;
             }
         }
 
     }
-    
+
     /**
-     * 
-     * Asettaa annetun värin nappulat valittaviksi tai ei-valittaviksi parametrin mukaan.
-     * 
+     *
+     * Asettaa annetun värin nappulat valittaviksi tai ei-valittaviksi
+     * parametrin mukaan.
+     *
      * @param vari minkä värin nappulat asetetaan
      * @param bool true asettaa valittaviksi, false ei-valittaviksi
      */
-
     public void setNappulatValittaviksi(VARI vari, boolean bool) {
 
         Pelaaja pelaaja = getPelaaja(vari);
+        System.out.println("bool: " + pelaaja.getVari() + " true/false: " + bool);
 
         for (Nappula nappula : pelaaja.getNappulat()) {
             getRuutu(nappula.getSijainti()).setOnkoValittava(bool);
+            System.out.println("nappula ruudussa : " + nappula.getSijainti() + " check : " + getRuutu(nappula.getSijainti()).getSijainti() + " bool :" + bool);
         }
 
     }
@@ -436,12 +441,11 @@ public class Pelilauta implements KimbleLogiikka {
 
     /**
      * Palauttaa annetun värin pelaajan.
-     * 
+     *
      * @param vari minkä värin pelaaja
      * @return Pelaaja jonka väri on parametrina annettu väri. Palauttaa null
      * jos tällaista pelaajaa ei löydy.
      */
-    
     public Pelaaja getPelaaja(VARI vari) {
 
         for (Pelaaja pelaaja : pelaajat) {
@@ -465,16 +469,15 @@ public class Pelilauta implements KimbleLogiikka {
     public VARI kenenVuoro() {
         return this.kenenVuoro;
     }
-    
-    /**
-     * 
-     * Palauttaa parametrina annetun indeksin ruudun. Käytännössä etsii sen
-     * joko tavallisten ruutujen tai lähtöruutujen joukosta.
-     * 
-     * @param indeksi
-     * @return 
-     */
 
+    /**
+     *
+     * Palauttaa parametrina annetun indeksin ruudun. Käytännössä etsii sen joko
+     * tavallisten ruutujen tai lähtöruutujen joukosta.
+     *
+     * @param indeksi
+     * @return
+     */
     public Ruutu getRuutu(int indeksi) {
         if (this.rengas.containsKey(indeksi)) {
             return this.rengas.get(indeksi);
@@ -485,6 +488,10 @@ public class Pelilauta implements KimbleLogiikka {
         }
 
         return null;
+    }
+
+    public int silmalukuNyt() {
+        return this.silmalukuNyt;
     }
 
 }

@@ -57,27 +57,11 @@ public class RuutuTest {
     @Test
     public void nappulanAsettaminenRuutuunOnnistuuReturnsTrue() {
         Nappula nappula = new Nappula(this.pelaaja, 1);
-        assertTrue(this.ruutu.asetaNappulaRuutuun(nappula));
-    }
-
-    @Test
-    public void nappulaaEiVoiAsettaaJosRuudussaToinen() {
-        Nappula nappula = new Nappula(this.pelaaja, 1);
         this.ruutu.asetaNappulaRuutuun(nappula);
-
-        Nappula nappula2 = new Nappula(this.pelaaja, 1);
-        this.ruutu.asetaNappulaRuutuun(nappula2);
         assertTrue(this.ruutu.getNappula().equals(nappula));
     }
 
-    @Test
-    public void nappulaaEiVoiAsettaaJosRuudussaToinenReturnsFalse() {
-        Nappula nappula = new Nappula(this.pelaaja, 1);
-        this.ruutu.asetaNappulaRuutuun(nappula);
 
-        Nappula nappula2 = new Nappula(this.pelaaja, 1);
-        assertTrue(this.ruutu.asetaNappulaRuutuun(nappula2) == false);
-    }
 
     @Test
     public void kunNappulaSiirretaanRuutuunNappulanSijaintiPaivittyy() {

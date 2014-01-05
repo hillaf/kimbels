@@ -19,7 +19,7 @@ public interface KimbleLogiikka {
     void luoRuudut();
     void luoPelaajat(int pelaajienMaara, ArrayList<String> nimilista);
     
-    boolean siirraNappulaa(Nappula nappula, int askeleita);
+    int siirraNappulaa(Nappula nappula, int askeleita);
     void siirraLahtoruutuun(Nappula nappula);
     VARI minkaVarinenNappula(int i);
     boolean onkoRuudussaNappula(int i);
@@ -27,5 +27,7 @@ public interface KimbleLogiikka {
     VARI kenenVuoro();
     void seuraavanVuoro();
     Ruutu getRuutu(int i);
+    int silmalukuNyt();
+    void setSiirtoVuoro(VARI vari, int silmaluku);
     
 }

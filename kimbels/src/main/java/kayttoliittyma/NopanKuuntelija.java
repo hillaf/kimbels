@@ -15,8 +15,8 @@ import sovelluslogiikka.KimbleLogiikka;
 /**
  *
  * Nopan tapahtumakuuntelija.
- * 
- * 
+ *
+ *
  * @author hilla
  */
 public class NopanKuuntelija implements ActionListener {
@@ -25,22 +25,22 @@ public class NopanKuuntelija implements ActionListener {
     private KimbleLogiikka logiikka;
     private JLabel ruutu;
     private Kayttoliittyma kayttoliittyma;
-    
-    public NopanKuuntelija(JButton noppa, KimbleLogiikka logiikka, JLabel ruutu, Kayttoliittyma liittyma){
+
+    public NopanKuuntelija(JButton noppa, KimbleLogiikka logiikka, JLabel ruutu, Kayttoliittyma liittyma) {
         this.noppa = noppa;
         this.logiikka = logiikka;
         this.ruutu = ruutu;
         this.kayttoliittyma = liittyma;
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
+
         int silmaluku = this.logiikka.heitaNoppaa();
         this.noppa.setText(String.valueOf(silmaluku));
-        this.logiikka.seuraavanVuoro();
-        this.ruutu.setText("VUOROSSA: " + this.logiikka.kenenVuoro());
-        this.kayttoliittyma.piirraRuudut();
-        
+        this.logiikka.setSiirtoVuoro(this.logiikka.kenenVuoro(), silmaluku);
+        this.kayttoliittyma.paivitaVuoroteksti();
+
     }
-    
+
 }

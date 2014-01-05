@@ -26,7 +26,6 @@ public class Alkukyselyt implements Runnable {
     
     private JFrame frame;
     private JPanel panel2;
-    private int montakoPelaajaa;
     private Peliaction action;
     
     public Alkukyselyt(Peliaction action){
@@ -77,12 +76,8 @@ public class Alkukyselyt implements Runnable {
         this.frame.getContentPane().add(panel2, BorderLayout.CENTER);
         
         JButton pelataan = new JButton("Pelataan!");
-        pelataan.addActionListener(new Aloituskuuntelija(button1, button2, button3, button4, this.action));
+        pelataan.addActionListener(new Aloituskuuntelija(button1, button2, button3, button4, this.action, pelataan));
         this.frame.getContentPane().add(pelataan, BorderLayout.SOUTH);
         
-    }
-    
-    public void setPelaajienMaara(int pelaajia){
-        this.action.setPelaajienMaara(pelaajia);
     }
 }

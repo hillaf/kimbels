@@ -4,6 +4,8 @@
  */
 package sovelluslogiikka;
 
+import java.awt.Color;
+
 /**
  *
  * Pelilaudan värit. Tietävät oman lähtöruutunsa.
@@ -11,15 +13,23 @@ package sovelluslogiikka;
  * @author hilla
  */
 public enum VARI {
-    SININEN(39), PUNAINEN(6), KELTAINEN(17), VIHREA(28);
+    SININEN(0, Color.BLUE), PUNAINEN(11, Color.RED), KELTAINEN(22, Color.YELLOW), VIHREA(33, Color.GREEN);
     private int lahtoruutu;
+    private Color color;
 
-        private VARI(int lahtoruutu) {
+        private VARI(int lahtoruutu, Color color) {
                 this.lahtoruutu = lahtoruutu;
+                this.color = color;
         }
         
         public int getLahtoruutu(){
             return this.lahtoruutu;
         }
+        
+        public Color getColor(){
+            return this.color;
+        }
+
+        
 
 }

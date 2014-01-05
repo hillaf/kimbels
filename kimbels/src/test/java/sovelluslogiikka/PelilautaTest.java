@@ -21,8 +21,6 @@ import static org.junit.Assert.*;
 public class PelilautaTest {
 
     Pelilauta pelilauta;
-//    ArrayList<Pelaaja> pelaajat;
-//    HashMap<Integer, Ruutu> rengas;
 
     public PelilautaTest() {
     }
@@ -95,8 +93,6 @@ public class PelilautaTest {
     @Test
     public void pelilautaLuoOikeinKaksiPelaajaa() {
         ArrayList<String> nimet = new ArrayList<String>();
-        nimet.add("Heikki");
-        nimet.add("Pekka");
         this.pelilauta.luoPelaajat(2, nimet);
         assertTrue(this.pelilauta.getPelaajat().size() == 2);
     }
@@ -126,11 +122,6 @@ public class PelilautaTest {
     @Test
     public void pelilautaEiLuoYliNeljaaPelaajaa() {
         ArrayList<String> nimet = new ArrayList<String>();
-        nimet.add("Heikki");
-        nimet.add("Pekka");
-        nimet.add("Jonne");
-        nimet.add("Make");
-        nimet.add("Hildemar");
 
         this.pelilauta.luoPelaajat(5, nimet);
         assertTrue(this.pelilauta.getPelaajat().size() == 4);
@@ -224,35 +215,35 @@ public class PelilautaTest {
     public void eiSiirraNappulaaUlosLaudalta() {
         Nappula nappula = new Nappula(new Pelaaja("Matti", VARI.KELTAINEN), 58);
         this.pelilauta.luoRuudut();
-        assertTrue(this.pelilauta.siirraNappulaa(nappula, 6) == false);
+        assertTrue(this.pelilauta.siirraNappulaa(nappula, 6) == -1);
     }
 
     @Test
     public void siirtaaNappulaaNeutraalillaAlueella() {
         Nappula nappula = new Nappula(new Pelaaja("Matti", VARI.PUNAINEN), 2);
         this.pelilauta.luoRuudut();
-        assertTrue(this.pelilauta.siirraNappulaa(nappula, 2) == true);
+        assertTrue(this.pelilauta.siirraNappulaa(nappula, 2) == 4);
     }
 
     @Test
     public void eiSiirraNappulaaToisenMaaliin() {
         Nappula nappula = new Nappula(new Pelaaja("Matti", VARI.SININEN), 2);
         this.pelilauta.luoRuudut();
-        assertTrue(this.pelilauta.siirraNappulaa(nappula, 6) == false);
+        assertTrue(this.pelilauta.siirraNappulaa(nappula, 6) == -1);
     }
 
     @Test
     public void siirtaaNappulanOmaanMaaliin() {
         Nappula nappula = new Nappula(new Pelaaja("Matti", VARI.PUNAINEN), 2);
         this.pelilauta.luoRuudut();
-        assertTrue(this.pelilauta.siirraNappulaa(nappula, 6) == true);
+        assertTrue(this.pelilauta.siirraNappulaa(nappula, 6) == 8);
     }
 
     @Test
     public void siirtaaNappulaaIndeksinReunalla() {
         Nappula nappula = new Nappula(new Pelaaja("Matti", VARI.SININEN), 40);
         this.pelilauta.luoRuudut();
-        assertTrue(this.pelilauta.siirraNappulaa(nappula, 3) == true);
+        assertTrue(this.pelilauta.siirraNappulaa(nappula, 3) == 43);
     }
 
     @Test
@@ -301,8 +292,6 @@ public class PelilautaTest {
     @Test
     public void toisenNappulaSyodaan() {
         ArrayList<String> pelaajat = new ArrayList<String>();
-        pelaajat.add("Matti");
-        pelaajat.add("Pentti");
         this.pelilauta.luoPelaajat(2, pelaajat);
         this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(0).getNappulat().get(0), 28);
         this.pelilauta.siirraNappulaRuutuun(this.pelilauta.getPelaajat().get(1).getNappulat().get(0), 28);

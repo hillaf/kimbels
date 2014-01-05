@@ -17,9 +17,11 @@ import javax.swing.JButton;
 public class KlikkausKuuntelija implements ActionListener {
 
     private PyoreaNappi nappi;
+    private Kayttoliittyma liittyma;
     
-    public KlikkausKuuntelija(PyoreaNappi nappi){
+    public KlikkausKuuntelija(PyoreaNappi nappi, Kayttoliittyma liittyma){
         this.nappi = nappi;
+        this.liittyma = liittyma;
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
