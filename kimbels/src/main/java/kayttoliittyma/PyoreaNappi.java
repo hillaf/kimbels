@@ -9,10 +9,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.util.HashMap;
 import javax.swing.JButton;
 import sovelluslogiikka.KimbleLogiikka;
 import sovelluslogiikka.Nappula;
 import sovelluslogiikka.Ruutu;
+import sovelluslogiikka.VARI;
 
 /**
  *
@@ -164,13 +166,16 @@ public class PyoreaNappi extends JButton {
     public void klikattu() {
 
         
-        int kohde = this.logiikka.siirraNappulaa(this.ruutu.getNappula(), this.logiikka.silmalukuNyt());
+        HashMap<Integer, VARI> paivitettavat = this.logiikka.siirraNappulaa(this.ruutu.getNappula(), this.logiikka.silmalukuNyt());
 
-        if (kohde != -1) {
-            kayttoliittyma.getNappilista().get(kohde).maalaaVarilla(this.vari);
-            this.vari = Color.LIGHT_GRAY;
-            this.repaint();
-            kayttoliittyma.getNappilista().get(kohde).repaint();
+        for (Integer i : paivitettavat.keySet()) {
+            
+            if (paivitettavat.get(i) == null){
+                this.kayttoliittyma.getNappilista().get(i).maalaaVarilla(Color.LIGHT_GRAY);
+            } else {
+                this.kayttoliittyma.getNappilista().get(i).maalaaVarilla(paivitettavat.get(i).getColor());
+            }
+            
         }
 
         kayttoliittyma.paivitaVuoroteksti();
@@ -195,6 +200,7 @@ public class PyoreaNappi extends JButton {
 
     public void maalaaVarilla(Color vari) {
         this.vari = vari;
+        this.repaint();
     }
 
 }

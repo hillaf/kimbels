@@ -5,6 +5,7 @@
 package sovelluslogiikka;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -19,8 +20,8 @@ public interface KimbleLogiikka {
     void luoRuudut();
     void luoPelaajat(int pelaajienMaara, ArrayList<String> nimilista);
     
-    int siirraNappulaa(Nappula nappula, int askeleita);
-    int siirraLahtoruutuun(Nappula nappula);
+    HashMap<Integer, VARI> siirraNappulaa(Nappula nappula, int askeleita);
+    void siirraLahtoruutuun(Nappula nappula);
     VARI minkaVarinenNappula(int i);
     boolean onkoRuudussaNappula(int i);
     int heitaNoppaa();
