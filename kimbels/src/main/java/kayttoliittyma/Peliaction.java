@@ -9,6 +9,8 @@ import sovelluslogiikka.Pelilauta;
 
 /**
  *
+ * Hallinnoi alun kyselyjä ja peliä.
+ * 
  * @author hilla
  */
 public class Peliaction implements Runnable {
@@ -23,6 +25,10 @@ public class Peliaction implements Runnable {
         this.kyselyt = new Alkukyselyt(this);
     }
 
+    /**
+     * Kutsutaan kun Aloituskuuntelija vastaanottaa klikkauksen.
+     */
+    
     @Override
     public void run() {
         this.kyselyt.run();

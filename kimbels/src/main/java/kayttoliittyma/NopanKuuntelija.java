@@ -33,6 +33,12 @@ public class NopanKuuntelija implements ActionListener {
         this.kayttoliittyma = liittyma;
     }
 
+    /**
+     * Klikattaessa heittää nopasta uuden silmäluvun ja kutsuu logiikan
+     * setSiirtoVuoro()-metodia.
+     * @param ae 
+     */
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
 

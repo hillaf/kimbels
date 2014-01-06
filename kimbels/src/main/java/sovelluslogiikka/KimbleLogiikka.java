@@ -20,7 +20,7 @@ public interface KimbleLogiikka {
     void luoPelaajat(int pelaajienMaara, ArrayList<String> nimilista);
     
     int siirraNappulaa(Nappula nappula, int askeleita);
-    void siirraLahtoruutuun(Nappula nappula);
+    int siirraLahtoruutuun(Nappula nappula);
     VARI minkaVarinenNappula(int i);
     boolean onkoRuudussaNappula(int i);
     int heitaNoppaa();

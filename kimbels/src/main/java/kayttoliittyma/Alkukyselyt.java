@@ -20,6 +20,8 @@ import javax.swing.WindowConstants;
 
 /**
  *
+ * Pelin alussa oleva kysely: montako pelaajaa pelaa.
+ * 
  * @author hilla
  */
 public class Alkukyselyt implements Runnable {
@@ -32,6 +34,10 @@ public class Alkukyselyt implements Runnable {
         this.action = action;
     }
 
+    /**
+     * Alustetaan frame ja panel, luodaan komponentit.
+     */
+    
     @Override
     public void run() {
         this.frame = new JFrame("Kimbels 1.0");
@@ -49,7 +55,9 @@ public class Alkukyselyt implements Runnable {
         this.frame.setVisible(true);
     }
     
-  
+  /**
+   * Luodaan kysymysteksti, vaihtoehdot ja pelaa-nappula.
+   */
     
     
     public void luoKomponentit(){

@@ -10,7 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 /**
- *
+ * Alun pelaajamääräkyselyjen pelataan-napin kuuntelija.
+ * 
  * @author hilla
  */
 public class Aloituskuuntelija implements ActionListener {
@@ -34,6 +35,11 @@ public class Aloituskuuntelija implements ActionListener {
         this.button = button;
     }
 
+    /**
+     * Asettaa pelaajien määrän valitun RadioButtonin perusteella.
+     * @param ae klikkaus
+     */
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (this.a.isSelected()) {

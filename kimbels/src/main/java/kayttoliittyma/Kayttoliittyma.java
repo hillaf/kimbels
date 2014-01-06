@@ -34,31 +34,71 @@ import sovelluslogiikka.VARI;
  */
 public class Kayttoliittyma implements Runnable {
 
+    /**
+     * frame, sisältää panel ja vuoroteksti
+     */
     private JFrame frame;
+    
+    /**
+     * panel: tähän lisätään ruudut ja noppa
+     */
     private JPanel panel;
+    
+    /**
+     * Lista paneliin lisätyistä PyoreaNappi-olioista (ruudut).
+     */
     private HashMap<Integer, PyoreaNappi> nappilista;
+    
+    /**
+     * Apumuuttuja ruutujen piirtämiseen, x-koordinaatti. Tämän voisi ehkä 
+     * refaktoroida metodien sisälle passailtavaksi.
+     */
     private int x;
+    
+    /**
+     * Apumuuttuja ruutujen piirtämiseen, y-koordinaatti. Tämän voisi ehkä
+     * refaktoroida myös metodien sisälle passailtavaksi.
+     */
     private int y;
+    
+    /**
+     * Rajapinta sovelluslogiikkaan.
+     */
     private KimbleLogiikka logiikka;
+    
+    /**
+     * JLabel joka sisältää tämänhetkisen tilanteen: kenen vuoro ja paljonko
+     * nopasta on viimeksi heitetty. TODO: myöhemmin jotain ekstraa?
+     */
     private JLabel vuoroteksti;
 
+    /**
+     * Konstruktori saa parametrina rajapinnan sovelluslogiikkaan.
+     * @param pelilauta 
+     */
+    
     public Kayttoliittyma(KimbleLogiikka pelilauta) {
         this.logiikka = pelilauta;
     }
 
+    /**
+     * run()-metodi alustaa komponentit ja listan ja asettaa framen speksit.
+     * Kutsuu luoKomponentit()-metodia ja asettaa framen näkyville.
+     * @see luoKomponentit()
+     */
+    
     @Override
     public void run() {
         this.frame = new JFrame("Kimbels 1.0");
         this.panel = new JPanel();
         this.vuoroteksti = new JLabel();
         this.nappilista = new HashMap<Integer, PyoreaNappi>();
+        
         this.frame.setBackground(Color.WHITE);
         this.frame.setLayout(new BorderLayout());
-
-
         this.frame.setPreferredSize(new Dimension(1000, 700));
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.panel.setLayout(null);
+        
 
         luoKomponentit();
 
@@ -68,10 +108,19 @@ public class Kayttoliittyma implements Runnable {
     
  
     
-   
+   /**
+    * 
+    * Luo komponentit peliin. Määrittelee panelin ja vuorotekstin speksit.
+    * Luo nopan ja kutsuu metodia piirraRuudut(). Asettelee paneli ja vuoro-
+    * tekstin frameen.
+    * @see luoNoppa()
+    * @see piirraRuudut()
+    * 
+    */
 
     public void luoKomponentit() {
         this.panel.setBackground(Color.WHITE);
+        this.panel.setLayout(null);
         this.vuoroteksti.setBackground(Color.WHITE);
         this.vuoroteksti.setLayout(new BorderLayout());
         this.vuoroteksti.setPreferredSize(new Dimension(280,200));
@@ -85,6 +134,10 @@ public class Kayttoliittyma implements Runnable {
         this.frame.getContentPane().add(this.panel, BorderLayout.CENTER);
         this.frame.getContentPane().add(vuoroteksti, BorderLayout.EAST);
     }
+    
+    /**
+     * Luo peliin nopan. 
+     */
 
     public void luoNoppa() {
         JButton noppa = new PyoreaNappi(0, 0, Color.PINK, 50);
@@ -96,7 +149,15 @@ public class Kayttoliittyma implements Runnable {
     
     
    
- 
+ /**
+  * Huolehtii ruutujen piirtämisen hallinnoinnista. Aloittaa piirtämisen
+  * kohdasta x, y. Kutsuu ensin neutraaleille ruuduille metodia piirraOvaali()
+  * ja tämän jälkeen maali- ja lähtöruuduille piirraRuudutVarille()-metodia. X:n
+  * ja y:n muutokset tapahtuvat näissä metodeissa.
+  * 
+  * @see piirraOvaali(int xi, int yi, int i)
+  * @see piirraRuudutVarille(int xi, int yi, VARI vari, int i)
+  */
 
     public void piirraRuudut() {
 
@@ -123,7 +184,16 @@ public class Kayttoliittyma implements Runnable {
 
     }
 
-
+/**
+ * 
+ * Luo harmaan ruudun annettuun sijaintiin x, y. i on ruudun indeksi, joka
+ * annetaan parametrina luoRuutu()-metodille.
+ * 
+ * @param xi sijainti x
+ * @param yi sijainti y
+ * @param i ruudun indeksi
+ * @see luoRuutu(int xi, int yi, Color vari, int i)
+ */
 
     public void piirraOvaali(int xi, int yi, int i) {
 
@@ -136,6 +206,21 @@ public class Kayttoliittyma implements Runnable {
         }
 
     }
+    
+    /**
+     * 
+     * Luo annetun värisen PyoreaNappi-olion annettuun sijaintiin x, y. 
+     * i on ruudun indeksi. Selvittää logiikalta onko ruudussa nappulaa ja
+     * onko sitä mahdollista siirtää (onko kyseessä vuorossaolevan pelaajan
+     * nappula). TODO: tee tästä oma metodinsa sovelluslogiikkaan.
+     * Luo myös tapahtumankuuntelijan.
+     * 
+     * 
+     * @param xi sijanti x
+     * @param yi sijainti y
+     * @param vari ruudun väri
+     * @param i ruudun indeksi
+     */
 
     public void luoRuutu(int xi, int yi, Color vari, int i) {
 
@@ -157,6 +242,13 @@ public class Kayttoliittyma implements Runnable {
 
     }
 
+    /**
+     * Huonosti nimetty metodi, joka laskee ruudun indeksin perusteella,
+     * mihin kohtaan seuraava ruutu piirretään.
+     * 
+     * @param i ruudun indeksi
+     */
+    
     public void asetaY(int i) {
         if (i < 5 && i > -1) {
             this.y += 60;
@@ -170,6 +262,12 @@ public class Kayttoliittyma implements Runnable {
             this.x -= 50;
         }
     }
+    
+    /**
+     * Myös huonosti nimetty metodi, joka laskee ruudun indeksin perusteella,
+     * mihin kohtaan seuraava ruutu piirretään.
+     * @param i ruudun indeksi
+     */
 
     public void asetaX(int i) {
         if (i < 7 && i > 4) {
@@ -188,6 +286,18 @@ public class Kayttoliittyma implements Runnable {
 
     }
 
+    /**
+     * Piirtää neljä annetun väristä ruutua lähtien kohdasta x, y. Piirtää uuden
+     * ruudun annettujen boolean-muuttujien mukaan.
+     * 
+     * @param vari ruudun väri
+     * @param xr ensimmäinen x-koordinaatti
+     * @param yr ensimmäinen y-koordinaatti
+     * @param xKasvaa kasvaako x - jos false, x pienenee
+     * @param yKasvaa kasvaako y - jos false, y pienenee
+     * @param indeksi ruudun indeksi
+     */
+    
     public void piirraRuudutVarille(Color vari, int xr, int yr, boolean xKasvaa, boolean yKasvaa, int indeksi) {
 
 
@@ -205,6 +315,10 @@ public class Kayttoliittyma implements Runnable {
             }
         }
     }    
+    
+    /**
+     * Päivittää vuorotekstin.
+     */
     
     public void paivitaVuoroteksti(){
         this.vuoroteksti.setText("VUOROSSA: " + this.logiikka.kenenVuoro() + ", viimeksi heitetty: " + this.logiikka.silmalukuNyt());

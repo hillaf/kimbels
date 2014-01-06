@@ -23,6 +23,11 @@ public class KlikkausKuuntelija implements ActionListener {
         this.nappi = nappi;
         this.liittyma = liittyma;
     }
+    
+    /**
+     * Kutsuu napin klikattu()-metodia kun klikataan.
+     * @param ae 
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (this.nappi.onkoKlikattava()){
