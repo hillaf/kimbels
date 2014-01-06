@@ -410,6 +410,7 @@ public class Pelilauta implements KimbleLogiikka {
             this.kenenVuoro = VARI.SININEN;
         }
 
+        
         System.out.println(this.kenenVuoro);
         setNappulatValittaviksi(this.kenenVuoro, true);
 

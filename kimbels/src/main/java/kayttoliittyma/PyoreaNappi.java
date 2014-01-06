@@ -29,55 +29,57 @@ public class PyoreaNappi extends JButton {
      * Sijainti x:n suhteen.
      */
     private int x;
-    
+
     /**
      * Sijainti y:n suhteen.
      */
     private int y;
-    
+
     /**
-     * Ruudun väri. BLUE/RED/YELLOW/GREEN jos ruudussa nappula tai LIGHT_GREY jos tyhjä.
+     * Ruudun väri. BLUE/RED/YELLOW/GREEN jos ruudussa nappula tai LIGHT_GREY
+     * jos tyhjä.
      */
     private Color vari;
-    
+
     /**
      * Ruudun reunan väri. BLUE/RED/YELLOW/GREEN jos jonkin värin lähtö- tai
      * maaliruutu. LIGHT_GREY jos tyhjä neutraali.
      */
     private Color borderVari;
-    
+
     /**
      * Napin muoto.
      */
     private Shape shape;
-    
+
     /**
      * Napin koko (size = leveys = korkeus).
      */
     private int size;
-    
+
     /**
      * Sovelluslogiikan ruutu johon nappi liittyy.
      */
     private Ruutu ruutu;
-    
+
     /**
      * Sovelluslogiikan rajapinta.
      */
     private KimbleLogiikka logiikka;
-    
+
     /**
      * Käyttöliittymä jonka metodeja nappi kutsuu klikattaessa.
      */
     private Kayttoliittyma kayttoliittyma;
-    
+
     /**
-     * Napin ruudun indeksi. 
+     * Napin ruudun indeksi.
      */
     private int indeksi;
 
     /**
      * Alustetaan muuttujat.
+     *
      * @param x sijainti x
      * @param y sijainti y
      * @param vari napin väri
@@ -86,7 +88,6 @@ public class PyoreaNappi extends JButton {
      * @param kayttoliittyma käyttöliittymä
      * @param indeksi ruudun indeksi
      */
-    
     public PyoreaNappi(int x, int y, Color vari, Ruutu ruutu, KimbleLogiikka logiikka, Kayttoliittyma kayttoliittyma, int indeksi) {
         this.x = x;
         this.y = y;
@@ -104,13 +105,12 @@ public class PyoreaNappi extends JButton {
     /**
      * Käytetään nopan luontiin. Noppa ei tunne sovelluslogiikkaa tai
      * käyttöliittymää.
-     * 
+     *
      * @param x
      * @param y
      * @param vari
-     * @param size 
+     * @param size
      */
-    
     public PyoreaNappi(int x, int y, Color vari, int size) {
         this.x = x;
         this.y = y;
@@ -121,8 +121,6 @@ public class PyoreaNappi extends JButton {
         setContentAreaFilled(false);
     }
 
-    
-    
     @Override
     protected void paintComponent(Graphics graphics) {
 
@@ -148,39 +146,36 @@ public class PyoreaNappi extends JButton {
 
     /**
      * Selvittää ruudulta voiko nappia klikata.
+     *
      * @return true jos voi klikata, false jos ei
      */
-    
     public boolean onkoKlikattava() {
         return this.ruutu.onkoValittava();
     }
 
     /**
-     * 
+     *
      * Kutsutaan, kun nappia klikataan. Yrittää siirtää nappulaa tämänhetkisen
      * silmäluvun mukaan. Jos ei onnistu eli siirraNappulaa() palauttaa -1, niin
      * ei tehdä mitään. Jos siirto onnistui, päivitetään vanha ja uusi ruutu.
      * Päivitetään vuoroteksti.
      */
-    
     public void klikattu() {
 
-        
         HashMap<Integer, VARI> paivitettavat = this.logiikka.siirraNappulaa(this.ruutu.getNappula(), this.logiikka.silmalukuNyt());
 
         for (Integer i : paivitettavat.keySet()) {
-            
-            if (paivitettavat.get(i) == null){
+
+            if (paivitettavat.get(i) == null) {
                 this.kayttoliittyma.getNappilista().get(i).maalaaVarilla(Color.LIGHT_GRAY);
             } else {
                 this.kayttoliittyma.getNappilista().get(i).maalaaVarilla(paivitettavat.get(i).getColor());
             }
-            
+
         }
-
-        kayttoliittyma.paivitaVuoroteksti();
+        
         this.logiikka.seuraavanVuoro();
-
+        kayttoliittyma.paivitaVuoroteksti();
     }
 
     public void maarittele() {
