@@ -395,7 +395,7 @@ public class Pelilauta implements KimbleLogiikka {
             poistaNappulaRuudusta(nappula.getSijainti());
         } else if (!minkaVarinenNappula(indeksi).equals(nappula.getPelaaja().getVari())) {
             siirraLahtoruutuun(this.rengas.get(indeksi).getNappula());
-            poistaNappulaRuudusta(indeksi);
+            poistaNappulaRuudusta(nappula.getSijainti());
         }
 
         sijoitettava.asetaNappulaRuutuun(nappula);
