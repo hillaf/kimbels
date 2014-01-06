@@ -41,3 +41,9 @@ Alkukyselyt luotu ja generoitu javadoc.
 
 3.1.2013 n. 3h
 Testaus ajan tasalle, käyttöliittymän siivoamista ja vähän uutta sovelluslogiikkaa.
+
+4.1.2013 n. 2h
+GUI:n debugausta, javadocia.
+
+5.1.2013 n. 3h
+Lisää GUI:n debugausta, melko valmis javadoc. Code review.
