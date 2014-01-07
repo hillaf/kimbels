@@ -252,15 +252,15 @@ public class Pelilauta implements KimbleLogiikka {
             tutkittavaSijainti += 4;
         }
 
-        // jos ruudussa oma nappula tai pelilauta loppuu
-        if (ruutuunVoiLiikkua(tutkittavaSijainti, nappula.getPelaaja().getVari()) == false) {
-            this.paivitettavatRuudut.put(nappula.getSijainti(), nappula.getPelaaja().getVari());
-            return this.paivitettavatRuudut;
-        } else {
-            this.paivitettavatRuudut.put(tutkittavaSijainti, nappula.getPelaaja().getVari());
+        // jos ruudussa oma nappula tai pelilauta loppuu ei liikuta
+        if (ruutuunVoiLiikkua(tutkittavaSijainti, nappula.getPelaaja().getVari())) {
             siirraNappulaRuutuun(nappula, tutkittavaSijainti);
+            this.paivitettavatRuudut.put(tutkittavaSijainti, nappula.getPelaaja().getVari());
+        } else {
+            this.paivitettavatRuudut.put(nappula.getSijainti(), nappula.getPelaaja().getVari());
         }
-
+        
+        
         return this.paivitettavatRuudut;
     }
 
@@ -271,10 +271,9 @@ public class Pelilauta implements KimbleLogiikka {
                 this.paivitettavatRuudut.put(siirraAloitusruudusta(nappula), nappula.getPelaaja().getVari());
                 return this.paivitettavatRuudut;
             }
-        } else {
-            this.paivitettavatRuudut.put(nappula.getSijainti(), nappula.getPelaaja().getVari());
         }
-
+        
+        this.paivitettavatRuudut.put(nappula.getSijainti(), nappula.getPelaaja().getVari());
         return this.paivitettavatRuudut;
     }
 
@@ -288,7 +287,7 @@ public class Pelilauta implements KimbleLogiikka {
 
     public boolean ruutuunVoiLiikkua(int indeksi, VARI nappulanVari) {
 
-        if (meneekoYliLaudalta(indeksi) || onkoRuudussaOmaNappula(indeksi, nappulanVari)) {
+        if (meneekoYliLaudalta(indeksi, nappulanVari) || onkoRuudussaOmaNappula(indeksi, nappulanVari)) {
             return false;
         } else {
             return true;
@@ -298,7 +297,8 @@ public class Pelilauta implements KimbleLogiikka {
 
     
     //TODO: yksilölliset boundit
-    public boolean meneekoYliLaudalta(int indeksi) {
+    public boolean meneekoYliLaudalta(int indeksi, VARI nappulanVari) {
+        
         if (getRuutu(indeksi) == null) {
             return true;
         } else {
@@ -488,7 +488,7 @@ public class Pelilauta implements KimbleLogiikka {
 
     // ei valmis
     @Override
-    public void siirraLahtoruutuun(Nappula nappula) {
+    public boolean siirraLahtoruutuun(Nappula nappula) {
 
         int sijaintiEnnen = nappula.getSijainti();
         Ruutu ennen = getRuutu(sijaintiEnnen);
@@ -501,9 +501,11 @@ public class Pelilauta implements KimbleLogiikka {
                     uusi.asetaNappulaRuutuun(nappula);
                     ennen.poistaNappulaRuudusta();
                     this.paivitettavatRuudut.put(uusi.getSijainti(), uusi.getVari());
+                    return true;
                 }
             }
         }
+        return false;
 
     }
 

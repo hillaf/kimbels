@@ -155,10 +155,8 @@ public class PyoreaNappi extends JButton {
 
     /**
      *
-     * Kutsutaan, kun nappia klikataan. Yrittää siirtää nappulaa tämänhetkisen
-     * silmäluvun mukaan. Jos ei onnistu eli siirraNappulaa() palauttaa -1, niin
-     * ei tehdä mitään. Jos siirto onnistui, päivitetään vanha ja uusi ruutu.
-     * Päivitetään vuoroteksti.
+     * Kutsutaan, kun nappia klikataan. Kutsuu siirraNappulaa logiikasta ja
+     * päivittää palautetussa listassa olleet napit oikean värisiksi.
      */
     public void klikattu() {
 
@@ -180,6 +178,8 @@ public class PyoreaNappi extends JButton {
 
     public void maarittele() {
 
+
+        
         if (this.ruutu.getNappula() != null) {
             this.borderVari = this.ruutu.getNappula().getPelaaja().getVari().getColor();
             this.vari = this.ruutu.getNappula().getPelaaja().getVari().getColor();
