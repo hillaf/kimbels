@@ -30,5 +30,9 @@ public interface KimbleLogiikka {
     Ruutu getRuutu(int i);
     int silmalukuNyt();
     void setSiirtoVuoro(VARI vari, int silmaluku);
+    boolean onkoVoittanutPelin(VARI vari);
+    boolean onkoHeittovuoro();
+    void siirrytaanSiirtymisvuoroon();
+            
     
 }

@@ -152,7 +152,7 @@ public class Kayttoliittyma implements Runnable {
      */
     public void piirraRuudut() {
 
-        this.vuoroteksti.setText("VUOROSSA: " + this.logiikka.kenenVuoro() + ", edellinen heitto: " + this.logiikka.silmalukuNyt());
+        this.vuoroteksti.setText(this.logiikka.kenenVuoro() + ", HEITÄ NOPPAA");
         this.x = 100;
         this.y = 150;
 
@@ -165,7 +165,7 @@ public class Kayttoliittyma implements Runnable {
         piirraRuudutVarille(Color.YELLOW, 510, 460, false, false, 18);
         piirraRuudutVarille(Color.GREEN, 510, 140, false, true, 29);
         piirraRuudutVarille(Color.BLUE, 190, 140, true, true, 40);
-        
+
         //lähtöruudut
         piirraRuudutVarille(Color.BLUE, 50, 120, true, false, 44);
         piirraRuudutVarille(Color.RED, 50, 480, true, true, 48);
@@ -294,7 +294,7 @@ public class Kayttoliittyma implements Runnable {
             } else {
                 yr -= 40;
             }
-            
+
         }
     }
 
@@ -302,7 +302,19 @@ public class Kayttoliittyma implements Runnable {
      * Päivittää vuorotekstin.
      */
     public void paivitaVuoroteksti() {
-        this.vuoroteksti.setText("VUOROSSA: " + this.logiikka.kenenVuoro() + ", viimeksi heitetty: " + this.logiikka.silmalukuNyt());
+
+        if (this.logiikka.onkoVoittanutPelin(this.logiikka.kenenVuoro())) {
+            this.vuoroteksti.setText(this.logiikka.kenenVuoro() + " VOITTI PELIN!");
+        } else {
+
+            if (this.logiikka.onkoHeittovuoro()) {
+                this.vuoroteksti.setText(this.logiikka.kenenVuoro() + ", HEITÄ NOPPAA");
+            } else {
+                this.vuoroteksti.setText(this.logiikka.kenenVuoro() + ", HEITIT " + this.logiikka.silmalukuNyt() + ", SIIRRÄ NAPPULAASI");
+            }
+
+        }
+
     }
 
     public JPanel getPelilauta() {

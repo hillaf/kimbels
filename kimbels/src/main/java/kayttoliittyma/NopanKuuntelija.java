@@ -36,16 +36,19 @@ public class NopanKuuntelija implements ActionListener {
     /**
      * Klikattaessa heittää nopasta uuden silmäluvun ja kutsuu logiikan
      * setSiirtoVuoro()-metodia.
-     * @param ae 
+     *
+     * @param ae
      */
-    
     @Override
     public void actionPerformed(ActionEvent ae) {
 
-        int silmaluku = this.logiikka.heitaNoppaa();
-        this.noppa.setText(String.valueOf(silmaluku));
-        this.logiikka.setSiirtoVuoro(this.logiikka.kenenVuoro(), silmaluku);
-        this.kayttoliittyma.paivitaVuoroteksti();
+        if (this.logiikka.onkoHeittovuoro()) {
+            int silmaluku = this.logiikka.heitaNoppaa();
+            this.noppa.setText(String.valueOf(silmaluku));
+            this.logiikka.setSiirtoVuoro(this.logiikka.kenenVuoro(), silmaluku);
+            this.logiikka.siirrytaanSiirtymisvuoroon();
+            this.kayttoliittyma.paivitaVuoroteksti();
+        }
 
     }
 

@@ -6,7 +6,7 @@ Aloitin koodaamisen, muutamat luokat luotu ja niille testit ja jotain yksinkerta
 toiminnallisuutta. Tappelin pit-raporttien kanssa. Piirsin luokkakaavion ja siivosin
 reposta kaikkea turhaa koska pieni OCD iski.
 
-20.12.2013 n. 2,5h
+20.12.2013 n. 2h
 Loin nappula-luokan ja sille testailua ja muutaman metodin pelilautaan. Testejä ja kaikkea
 pikkusälää myös. Cobertura ja pit on ihan mahtavia!
 
@@ -47,3 +47,9 @@ GUI:n debugausta, javadocia.
 
 5.1.2013 n. 3h
 Lisää GUI:n debugausta, melko valmis javadoc. Code review.
+
+6.1.2013 n. 1h
+Metodin refaktorointi, pari bugia fiksattu.
+
+7.1.2013 n. 3h
+Korjattu jäljellä olleet bugit, kaiken pitäisi toimia nyt ihan oikein.

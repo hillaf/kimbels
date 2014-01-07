@@ -16,9 +16,11 @@ import java.util.Random;
 public class Noppa {
     
     private Random arpoja;
+    private boolean onKlikattava;
     
     public Noppa(){
         this.arpoja = new Random();
+        this.onKlikattava = true;
     }
     
     /**
@@ -35,4 +37,11 @@ public class Noppa {
         return arvottuLuku;
     }
     
+    public boolean onkoKlikattava(){
+        return this.onKlikattava;
+    }
+    
+    public void onkoKlikattava(boolean bool){
+        this.onKlikattava = bool;
+    }
 }

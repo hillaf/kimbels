@@ -425,12 +425,7 @@ public class PelilautaTest {
         assertTrue(this.pelilauta.getRuutu(44).onkoValittava() == false);
     }
 
-    @Test
-    public void seuraavanVuoroAsettaaNappulatValittaviksiTrue() {
-        this.pelilauta.luoPelaajat(2, new ArrayList<String>());
-        this.pelilauta.seuraavanVuoro();
-        assertTrue(this.pelilauta.getRuutu(49).onkoValittava() == true);
-    }
+ 
 
     @Test
     public void seuraavanVuoroKierrosOikein() {

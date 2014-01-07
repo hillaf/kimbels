@@ -174,6 +174,7 @@ public class PyoreaNappi extends JButton {
         
         this.logiikka.seuraavanVuoro();
         kayttoliittyma.paivitaVuoroteksti();
+        
     }
 
     public void maarittele() {

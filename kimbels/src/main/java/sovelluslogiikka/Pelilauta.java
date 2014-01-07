@@ -225,17 +225,17 @@ public class Pelilauta implements KimbleLogiikka {
         }
     }
 
-  /**
-   * 
-   * Hallinnoi nappulan siirtämistä. Jos aloitusruudussa, passaa sisarmetodille
-   * siirraNappulaaAloitusruudussa joka huolehtii käytännössä samoista asioista
-   * paitsi aloitusruuduille.
-   * 
-   * 
-   * @param nappula
-   * @param askeleita
-   * @return päivitettävät ruudut
-   */
+    /**
+     *
+     * Hallinnoi nappulan siirtämistä. Jos aloitusruudussa, passaa
+     * sisarmetodille siirraNappulaaAloitusruudussa joka huolehtii käytännössä
+     * samoista asioista paitsi aloitusruuduille.
+     *
+     *
+     * @param nappula
+     * @param askeleita
+     * @return päivitettävät ruudut
+     */
     @Override
     public HashMap<Integer, VARI> siirraNappulaa(Nappula nappula, int askeleita) {
 
@@ -243,36 +243,47 @@ public class Pelilauta implements KimbleLogiikka {
         this.paivitettavatRuudut.put(nappula.getSijainti(), null);
 
         //jos ollaan aloitusruudussa
-        if (ollaanAloitusruudussa(nappula.getSijainti())){
+        if (ollaanAloitusruudussa(nappula.getSijainti())) {
             return siirraNappulaaAloitusruudussa(nappula, askeleita);
         }
-        
+
         // jos meinaa kävellä vastustajan maaliin, kävellään ohi
         if (valissaOnMuidenMaaliruutuja(nappula.getSijainti(), nappula.getPelaaja().getVari(), askeleita)) {
             tutkittavaSijainti += 4;
         }
 
         // jos ruudussa oma nappula tai pelilauta loppuu ei liikuta
-        if (ruutuunVoiLiikkua(tutkittavaSijainti, nappula.getPelaaja().getVari())) {
+        if (ruutuunVoiLiikkua(nappula, tutkittavaSijainti, nappula.getPelaaja().getVari())) {
+            tutkittavaSijainti = tutkiIndeksiHyppays(nappula, tutkittavaSijainti);
             siirraNappulaRuutuun(nappula, tutkittavaSijainti);
             this.paivitettavatRuudut.put(tutkittavaSijainti, nappula.getPelaaja().getVari());
         } else {
             this.paivitettavatRuudut.put(nappula.getSijainti(), nappula.getPelaaja().getVari());
         }
-        
-        
+
         return this.paivitettavatRuudut;
+    }
+
+    public int tutkiIndeksiHyppays(Nappula nappula, int alkuperainenIndeksi) {
+
+        if (alkuperainenIndeksi > 43) {
+            nappula.ohittiNollan(true);
+            return (alkuperainenIndeksi - 44);
+        } else {
+            return alkuperainenIndeksi;
+        }
+
     }
 
     public HashMap<Integer, VARI> siirraNappulaaAloitusruudussa(Nappula nappula, int askelia) {
 
         if (askelia == 6) {
-            if (ruutuunVoiLiikkua(nappula.getPelaaja().getVari().getLahtoruutu(), nappula.getPelaaja().getVari())) {
+            if (!onkoRuudussaOmaNappula(nappula.getPelaaja().getVari().getLahtoruutu(), nappula.getPelaaja().getVari())) {
                 this.paivitettavatRuudut.put(siirraAloitusruudusta(nappula), nappula.getPelaaja().getVari());
                 return this.paivitettavatRuudut;
             }
         }
-        
+
         this.paivitettavatRuudut.put(nappula.getSijainti(), nappula.getPelaaja().getVari());
         return this.paivitettavatRuudut;
     }
@@ -285,9 +296,9 @@ public class Pelilauta implements KimbleLogiikka {
         }
     }
 
-    public boolean ruutuunVoiLiikkua(int indeksi, VARI nappulanVari) {
+    public boolean ruutuunVoiLiikkua(Nappula nappula, int indeksi, VARI nappulanVari) {
 
-        if (meneekoYliLaudalta(indeksi, nappulanVari) || onkoRuudussaOmaNappula(indeksi, nappulanVari)) {
+        if (meneekoYliLaudalta(nappula, indeksi, nappulanVari) || onkoRuudussaOmaNappula(indeksi, nappulanVari)) {
             return false;
         } else {
             return true;
@@ -295,15 +306,28 @@ public class Pelilauta implements KimbleLogiikka {
 
     }
 
-    
     //TODO: yksilölliset boundit
-    public boolean meneekoYliLaudalta(int indeksi, VARI nappulanVari) {
-        
-        if (getRuutu(indeksi) == null) {
-            return true;
-        } else {
-            return false;
+    public boolean meneekoYliLaudalta(Nappula nappula, int indeksi, VARI nappulanVari) {
+
+        if (nappulanVari.equals(VARI.SININEN)) {
+            if (indeksi > 43) {
+                return true;
+            }
+        } else if (nappulanVari.equals(VARI.PUNAINEN)) {
+            if (indeksi > 10 && nappula.onOhittanutNollan()) {
+                return true;
+            }
+        } else if (nappulanVari.equals(VARI.KELTAINEN)) {
+            if (indeksi > 21 && nappula.onOhittanutNollan()) {
+                return true;
+            }
+        } else if (nappulanVari.equals(VARI.VIHREA)) {
+            if (indeksi > 32 && nappula.onOhittanutNollan()) {
+                return true;
+            }
         }
+
+        return false;
     }
 
     public boolean onkoRuudussaOmaNappula(int indeksi, VARI nappulanVari) {
@@ -321,7 +345,10 @@ public class Pelilauta implements KimbleLogiikka {
 
     public boolean valissaOnMuidenMaaliruutuja(int sijainti, VARI nappulanVari, int askeleita) {
 
-        for (int i = sijainti+1; i <= sijainti + askeleita; i++) {
+        for (int i = sijainti + 1; i <= sijainti + askeleita; i++) {
+            if (i > 43) {
+                return false;
+            }
             if (this.rengas.get(i).getVari() != null && nappulanVari != this.rengas.get(i).getVari()) {
                 return true;
             }
@@ -381,7 +408,7 @@ public class Pelilauta implements KimbleLogiikka {
     }
 
     /**
-     * 
+     *
      *
      * @param nappula
      * @param indeksi
@@ -460,36 +487,67 @@ public class Pelilauta implements KimbleLogiikka {
     public void seuraavanVuoro() {
 
         setNappulatValittaviksi(this.kenenVuoro, false);
-        int max = this.pelaajat.size() - 1;
-        int i = 0;
 
-        if (this.kenenVuoro.equals(VARI.SININEN)) {
-            this.kenenVuoro = VARI.PUNAINEN;
-            i = 1;
-        } else if (this.kenenVuoro.equals(VARI.PUNAINEN)) {
-            this.kenenVuoro = VARI.KELTAINEN;
-            i = 2;
-        } else if (this.kenenVuoro.equals(VARI.KELTAINEN)) {
-            this.kenenVuoro = VARI.VIHREA;
-            i = 3;
-        } else if (this.kenenVuoro.equals(VARI.VIHREA)) {
-            this.kenenVuoro = VARI.SININEN;
-            i = 0;
+        if (this.onkoVoittanutPelin(this.kenenVuoro) == false) {
+            int max = this.pelaajat.size() - 1;
+            int i = 0;
+
+            if (this.kenenVuoro.equals(VARI.SININEN)) {
+                this.kenenVuoro = VARI.PUNAINEN;
+                i = 1;
+            } else if (this.kenenVuoro.equals(VARI.PUNAINEN)) {
+                this.kenenVuoro = VARI.KELTAINEN;
+                i = 2;
+            } else if (this.kenenVuoro.equals(VARI.KELTAINEN)) {
+                this.kenenVuoro = VARI.VIHREA;
+                i = 3;
+            } else if (this.kenenVuoro.equals(VARI.VIHREA)) {
+                this.kenenVuoro = VARI.SININEN;
+                i = 0;
+            }
+
+            if (i > max) {
+                this.kenenVuoro = VARI.SININEN;
+            }
+            
+            this.noppa.onkoKlikattava(true);
         }
 
-        if (i > max) {
-            this.kenenVuoro = VARI.SININEN;
+    }
+
+    public int getEnsimmainenMaaliruutu(VARI vari) {
+
+        if (vari.equals(SININEN)) {
+            return 40;
+        } else if (vari.equals(PUNAINEN)) {
+            return 7;
+        } else if (vari.equals(KELTAINEN)) {
+            return 18;
+        } else if (vari.equals(VIHREA)) {
+            return 29;
         }
 
-        System.out.println(this.kenenVuoro);
-        setNappulatValittaviksi(this.kenenVuoro, true);
+        return 0;
+    }
 
+    @Override
+    public boolean onkoVoittanutPelin(VARI vari) {
+
+        int maaliAlkaa = getEnsimmainenMaaliruutu(vari);
+        for (int i = maaliAlkaa; i < maaliAlkaa + 4; i++) {
+            if (onkoRuudussaNappula(i) == false) {
+                return false;
+            }
+
+        }
+        return true;
     }
 
     // ei valmis
     @Override
     public boolean siirraLahtoruutuun(Nappula nappula) {
 
+        nappula.ohittiNollan(false);
         int sijaintiEnnen = nappula.getSijainti();
         Ruutu ennen = getRuutu(sijaintiEnnen);
         int ekaAloitusruutu = getEkaAloitusruutu(nappula.getPelaaja().getVari());
@@ -507,6 +565,22 @@ public class Pelilauta implements KimbleLogiikka {
         }
         return false;
 
+    }
+
+    /**
+     * Palauttaa true jos on heittovuoro (eli ei siirtovuoro).
+     *
+     * @return
+     */
+    @Override
+    public boolean onkoHeittovuoro() {
+        return this.noppa.onkoKlikattava();
+    }
+
+    @Override
+    public void siirrytaanSiirtymisvuoroon() {
+        this.noppa.onkoKlikattava(false);
+        setNappulatValittaviksi(this.kenenVuoro, true);
     }
 
     /**

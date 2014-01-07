@@ -15,10 +15,12 @@ public class Nappula {
     
     private Pelaaja pelaaja;
     private int sijainti;
+    private boolean onkoOhittanutNollan;
     
     public Nappula(Pelaaja pelaaja, int sijainti){
         this.pelaaja = pelaaja;
         this.sijainti = sijainti;
+        this.onkoOhittanutNollan = false;
     }
     
     
@@ -32,5 +34,13 @@ public class Nappula {
     
     public int getSijainti(){
         return this.sijainti;
+    }
+    
+    public boolean onOhittanutNollan(){
+        return this.onkoOhittanutNollan;
+    }
+    
+    public void ohittiNollan(boolean bool){
+        this.onkoOhittanutNollan = bool;
     }
 }
