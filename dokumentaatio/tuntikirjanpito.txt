@@ -57,6 +57,6 @@ Korjattu jäljellä olleet bugit, kaiken pitäisi toimia nyt ihan oikein.
 7.1.2013 n.4h
 Raivoisa yö äänitiedostojen kanssa taistellen. Ei onnistunut. :(
 
-8.1.2013 n. 4h
+8.1.2013 n. 5h
 Leppoisaa pajassa istuskelua, demo ja pari tuntia koodin siistimistä ja javadocia.
-Sekvenssikaaviot päivitetty, samoin cobertura ja pit DL5 varten.
+Sekvenssikaaviot päivitetty, samoin cobertura ja pit DL5 varten. Tunnin verran tein lisää testejä.
