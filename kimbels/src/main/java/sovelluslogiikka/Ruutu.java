@@ -57,12 +57,13 @@ public class Ruutu {
      */
     public void asetaNappulaRuutuun(Nappula nappula) {
         this.nappula = nappula;
-        nappula.setSijainti(this.sijainti);
+        this.nappula.setSijainti(this.sijainti);
 
     }
 
     public void poistaNappulaRuudusta() {
         this.nappula = null;
+        this.onkoValittava = false;
     }
 
     public Nappula getNappula() {

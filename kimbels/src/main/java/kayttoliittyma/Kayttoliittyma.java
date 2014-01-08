@@ -137,7 +137,7 @@ public class Kayttoliittyma implements Runnable {
         noppa.setText("!");
         noppa.addActionListener(new NopanKuuntelija(noppa, this.logiikka, this.vuoroteksti, this));
         this.panel.add(noppa);
-        noppa.setBounds(340, 290, 50, 50);
+        noppa.setBounds(340, 290, 52, 52);
     }
 
     /**

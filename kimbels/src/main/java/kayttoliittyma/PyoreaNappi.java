@@ -77,6 +77,7 @@ public class PyoreaNappi extends JButton {
      */
     private int indeksi;
 
+
     /**
      * Alustetaan muuttujat.
      *
@@ -115,7 +116,7 @@ public class PyoreaNappi extends JButton {
         this.x = x;
         this.y = y;
         this.vari = vari;
-        this.borderVari = vari;
+        this.borderVari = this.vari.darker();
         this.size = size;
 
         setContentAreaFilled(false);
@@ -167,23 +168,20 @@ public class PyoreaNappi extends JButton {
             if (paivitettavat.get(i) == null) {
                 this.kayttoliittyma.getNappilista().get(i).maalaaVarilla(Color.LIGHT_GRAY);
             } else {
-                this.kayttoliittyma.getNappilista().get(i).maalaaVarilla(paivitettavat.get(i).getColor());
+                this.kayttoliittyma.getNappilista().get(i).piirraNappularuutu(paivitettavat.get(i).getColor());
             }
 
         }
-        
+
         this.logiikka.seuraavanVuoro();
         kayttoliittyma.paivitaVuoroteksti();
-        
+
     }
 
     public void maarittele() {
 
-
-        
         if (this.ruutu.getNappula() != null) {
-            this.borderVari = this.ruutu.getNappula().getPelaaja().getVari().getColor();
-            this.vari = this.ruutu.getNappula().getPelaaja().getVari().getColor();
+            piirraNappularuutu(vari);
         } else {
             if (this.ruutu.getVari() != null) {
                 this.borderVari = this.ruutu.getVari().getColor();
@@ -196,7 +194,18 @@ public class PyoreaNappi extends JButton {
 
     public void maalaaVarilla(Color vari) {
         this.vari = vari;
+        if(this.ruutu.getVari() != null) {
+            this.borderVari = this.ruutu.getVari().getColor();
+        } else {
+            this.borderVari = this.vari;
+        }
+        
         this.repaint();
     }
 
+    public void piirraNappularuutu(Color vari) {
+        this.borderVari = Color.DARK_GRAY;
+        this.vari = this.ruutu.getNappula().getPelaaja().getVari().getColor();
+        this.repaint();
+    }
 }

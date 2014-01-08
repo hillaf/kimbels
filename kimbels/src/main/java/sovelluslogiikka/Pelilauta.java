@@ -239,6 +239,9 @@ public class Pelilauta implements KimbleLogiikka {
     @Override
     public HashMap<Integer, VARI> siirraNappulaa(Nappula nappula, int askeleita) {
 
+        if (nappula == null){
+            System.out.println("!");
+        }
         int tutkittavaSijainti = nappula.getSijainti() + askeleita;
         this.paivitettavatRuudut.put(nappula.getSijainti(), null);
 
