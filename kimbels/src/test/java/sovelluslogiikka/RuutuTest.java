@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static sovelluslogiikka.VARI.*;
 
 /**
  *
@@ -34,7 +35,7 @@ public class RuutuTest {
     @Before
     public void setUp() {
         this.ruutu = new Ruutu(2, null);
-        this.pelaaja = new Pelaaja("Mikko", VARI.KELTAINEN);
+        this.pelaaja = new Pelaaja(KELTAINEN);
     }
 
     @After
@@ -48,7 +49,7 @@ public class RuutuTest {
 
     @Test
     public void nappulanAsettaminenRuutuunOnnistuu() {
-        Nappula nappula = new Nappula(this.pelaaja, 1);
+        Nappula nappula = new Nappula(this.pelaaja);
         this.ruutu.asetaNappulaRuutuun(nappula);
 
         assertTrue(this.ruutu.getNappula().equals(nappula));
@@ -56,7 +57,7 @@ public class RuutuTest {
 
     @Test
     public void nappulanAsettaminenRuutuunOnnistuuReturnsTrue() {
-        Nappula nappula = new Nappula(this.pelaaja, 1);
+        Nappula nappula = new Nappula(this.pelaaja);
         this.ruutu.asetaNappulaRuutuun(nappula);
         assertTrue(this.ruutu.getNappula().equals(nappula));
     }
@@ -65,14 +66,14 @@ public class RuutuTest {
 
     @Test
     public void kunNappulaSiirretaanRuutuunNappulanSijaintiPaivittyy() {
-        Nappula nappula = new Nappula(this.pelaaja, 1);
+        Nappula nappula = new Nappula(this.pelaaja);
         this.ruutu.asetaNappulaRuutuun(nappula);
         assertTrue(nappula.getSijainti() == this.ruutu.getSijainti());
     }
 
     @Test
     public void poistaNappulaRuudusta() {
-        Nappula nappula = new Nappula(this.pelaaja, 1);
+        Nappula nappula = new Nappula(this.pelaaja);
         this.ruutu.asetaNappulaRuutuun(nappula);
         this.ruutu.poistaNappulaRuudusta();
         assertTrue(this.ruutu.getNappula() == null);

@@ -13,14 +13,21 @@ package sovelluslogiikka;
  */
 public class Nappula {
     
-    private Pelaaja pelaaja;
+    private final Pelaaja pelaaja;
     private int sijainti;
-    private boolean onkoOhittanutNollan;
     
-    public Nappula(Pelaaja pelaaja, int sijainti){
+    /**
+     * Jos nappula on ohittanut nollan, tiedetään muualla huolehtia ettei se astu yli
+     * maailmankartalta ja aiheuta ydintuhoa.
+     */
+    private boolean onkoOhittanutNollan;
+    private final VARI vari;
+    
+    public Nappula(Pelaaja pelaaja){
         this.pelaaja = pelaaja;
-        this.sijainti = sijainti;
+        this.sijainti = pelaaja.getVari().getLahtoruutu();
         this.onkoOhittanutNollan = false;
+        this.vari = pelaaja.getVari();
     }
     
     
@@ -36,11 +43,15 @@ public class Nappula {
         return this.sijainti;
     }
     
-    public boolean onOhittanutNollan(){
+    public VARI getVari(){
+        return this.vari;
+    }
+    
+    public boolean onkoOhittanutNollan(){
         return this.onkoOhittanutNollan;
     }
     
-    public void ohittiNollan(boolean bool){
+    public void setOhittiNollan(boolean bool){
         this.onkoOhittanutNollan = bool;
     }
 }

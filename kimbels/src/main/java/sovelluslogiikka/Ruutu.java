@@ -19,7 +19,7 @@ public class Ruutu {
     /**
      * Ruudun sijainti indeksinä väliltä 0-59.
      */
-    private int sijainti;
+    private final int sijainti;
 
     /**
      * Ruudun sisältämä nappula. Jos ei nappulaa, niin nappula == null;
@@ -29,7 +29,7 @@ public class Ruutu {
     /**
      * Ruudun väri. Jos neutraali, niin vari == null;
      */
-    private VARI vari;
+    private final VARI vari;
 
     /**
      * Onko ruutu aktiivinen. Eli onko ruudussa nappula, joka kuuluu pelaajalle,
@@ -53,7 +53,6 @@ public class Ruutu {
      * Asettaa nappulan ruutuun.
      *
      * @param nappula nappula joka ruutuun asetetaan
-     * @return palauttaa true jos asettaminen onnistui, false muuten
      */
     public void asetaNappulaRuutuun(Nappula nappula) {
         this.nappula = nappula;

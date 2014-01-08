@@ -4,25 +4,17 @@
  */
 package kayttoliittyma;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.WindowConstants;
 import sovelluslogiikka.KimbleLogiikka;
-import sovelluslogiikka.Pelilauta;
-import sovelluslogiikka.Ruutu;
 import sovelluslogiikka.VARI;
 
 /**
@@ -50,13 +42,13 @@ public class Kayttoliittyma implements Runnable {
     private HashMap<Integer, PyoreaNappi> nappilista;
 
     /**
-     * Apumuuttuja ruutujen piirtämiseen, x-koordinaatti. Tämän voisi ehkä
+     * Apumuuttuja ruutujen piirtämiseen, x-koordinaatti. Tämän voisi
      * refaktoroida metodien sisälle passailtavaksi.
      */
     private int x;
 
     /**
-     * Apumuuttuja ruutujen piirtämiseen, y-koordinaatti. Tämän voisi ehkä
+     * Apumuuttuja ruutujen piirtämiseen, y-koordinaatti. Tämän voisi
      * refaktoroida myös metodien sisälle passailtavaksi.
      */
     private int y;
@@ -64,11 +56,11 @@ public class Kayttoliittyma implements Runnable {
     /**
      * Rajapinta sovelluslogiikkaan.
      */
-    private KimbleLogiikka logiikka;
+    private final KimbleLogiikka logiikka;
 
     /**
      * JLabel joka sisältää tämänhetkisen tilanteen: kenen vuoro ja paljonko
-     * nopasta on viimeksi heitetty. TODO: myöhemmin jotain ekstraa?
+     * nopasta on viimeksi heitetty.
      */
     private JLabel vuoroteksti;
 
@@ -135,7 +127,7 @@ public class Kayttoliittyma implements Runnable {
     public void luoNoppa() {
         JButton noppa = new PyoreaNappi(0, 0, Color.PINK, 50);
         noppa.setText("!");
-        noppa.addActionListener(new NopanKuuntelija(noppa, this.logiikka, this.vuoroteksti, this));
+        noppa.addActionListener(new NopanKuuntelija(noppa, this.logiikka, this));
         this.panel.add(noppa);
         noppa.setBounds(340, 290, 52, 52);
     }
@@ -147,7 +139,7 @@ public class Kayttoliittyma implements Runnable {
      * piirraRuudutVarille()-metodia. X:n ja y:n muutokset tapahtuvat näissä
      * metodeissa.
      *
-     * @see piirraOvaali(int xi, int yi, int i)
+     * @see #piirraVarittomatRuudut(int, int, int)
      * @see piirraRuudutVarille(int xi, int yi, VARI vari, int i)
      */
     public void piirraRuudut() {
@@ -157,7 +149,7 @@ public class Kayttoliittyma implements Runnable {
         this.y = 150;
 
         for (int i = 0; i < 44; i++) {
-            piirraOvaali(this.x, this.y, i);
+            piirraVarittomatRuudut(this.x, this.y, i);
         }
 
         //maaliruudut
@@ -184,16 +176,19 @@ public class Kayttoliittyma implements Runnable {
      * @param i ruudun indeksi
      * @see luoRuutu(int xi, int yi, Color vari, int i)
      */
-    public void piirraOvaali(int xi, int yi, int i) {
+    public void piirraVarittomatRuudut(int xi, int yi, int i) {
 
         Color vari = Color.LIGHT_GRAY;
 
-        if ((i < 7 && i > -1) || (i > 10 && i < 18) || (i > 21 && i < 29) || (i > 32 && i < 40)) {
+        if (onkoRuutuVariton(i)) {
             luoRuutu(xi, yi, vari, i);
             asetaX(i);
             asetaY(i);
         }
-
+    }
+    
+    public boolean onkoRuutuVariton(int indeksi){
+        return this.logiikka.getRuutu(indeksi).getVari() == null;
     }
 
     /**
@@ -201,8 +196,9 @@ public class Kayttoliittyma implements Runnable {
      * Luo annetun värisen PyoreaNappi-olion annettuun sijaintiin x, y. i on
      * ruudun indeksi. Selvittää logiikalta onko ruudussa nappulaa ja onko sitä
      * mahdollista siirtää (onko kyseessä vuorossaolevan pelaajan nappula).
-     * TODO: tee tästä oma metodinsa sovelluslogiikkaan. Luo myös
-     * tapahtumankuuntelijan.
+     * VOIS TEHDÄ: tee tästä oma metodinsa sovelluslogiikkaan. Luo myös
+     * tapahtumankuuntelijan. Toisaalta tätä settiä kutsutaan vain kerran pelin
+     * alussa..
      *
      *
      * @param xi sijanti x
@@ -212,17 +208,17 @@ public class Kayttoliittyma implements Runnable {
      */
     public void luoRuutu(int xi, int yi, Color vari, int i) {
 
-        PyoreaNappi nappi = new PyoreaNappi(0, 0, vari, this.logiikka.getRuutu(i), this.logiikka, Kayttoliittyma.this, i);
+        PyoreaNappi nappi = new PyoreaNappi(0, 0, vari, this.logiikka.getRuutu(i), this.logiikka, Kayttoliittyma.this);
         nappi.maarittele();
         this.nappilista.put(i, nappi);
-
+        
         if (logiikka.onkoRuudussaNappula(i) && logiikka.minkaVarinenNappula(i).equals(this.logiikka.kenenVuoro())) {
             this.logiikka.getRuutu(i).setOnkoValittava(true);
         } else {
             this.logiikka.getRuutu(i).setOnkoValittava(false);
         }
 
-        nappi.addActionListener(new KlikkausKuuntelija(nappi, this));
+        nappi.addActionListener(new KlikkausKuuntelija(nappi));
         this.panel.add(nappi);
         nappi.setBounds(xi, yi, 40, 40);
 
@@ -230,7 +226,7 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Huonosti nimetty metodi, joka laskee ruudun indeksin perusteella, mihin
-     * kohtaan seuraava ruutu piirretään.
+     * kohtaan seuraava ruutu piirretään. En uskalla koskea tähän enää.
      *
      * @param i ruudun indeksi
      */
@@ -250,7 +246,8 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Myös huonosti nimetty metodi, joka laskee ruudun indeksin perusteella,
-     * mihin kohtaan seuraava ruutu piirretään.
+     * mihin kohtaan seuraava ruutu piirretään. En uskalla koskea tähän enää,
+     * tää on jotain woodoota.
      *
      * @param i ruudun indeksi
      */

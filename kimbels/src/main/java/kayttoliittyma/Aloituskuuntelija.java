@@ -15,14 +15,40 @@ import javax.swing.JRadioButton;
  * @author hilla
  */
 public class Aloituskuuntelija implements ActionListener {
-
+/**
+ * Pelin pelaajien määrä.
+ */
     private int pelaajienMaara;
-    private JRadioButton a;
-    private JRadioButton b;
-    private JRadioButton c;
-    private JRadioButton d;
-    private Peliaction action;
-    private JButton button;
+    
+    /**
+     * Pelaajia 1.
+     */
+    private final JRadioButton a;
+    
+    /**
+     * Pelaajia 2.
+     */
+    private final JRadioButton b;
+    
+    /**
+     * Pelaajia 3.
+     */
+    private final JRadioButton c;
+    
+    /**
+     * Pelaajia 4.
+     */
+    private final JRadioButton d;
+    
+    /**
+     * Pelaajien määrä annetaan actionille parametrina.
+     */
+    private final Peliaction action;
+    
+    /**
+     * Painettu nappula disabloidaan mahdollisen ydintuhon välttämiseksi.
+     */
+    private final JButton button;
 
     
     public Aloituskuuntelija(JRadioButton a, JRadioButton b, JRadioButton c, JRadioButton d, Peliaction action, JButton button) {

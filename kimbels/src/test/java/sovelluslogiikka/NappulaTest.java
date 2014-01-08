@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static sovelluslogiikka.VARI.*;
 
 /**
  *
@@ -33,7 +34,7 @@ public class NappulaTest {
     
     @Before
     public void setUp() {
-        this.nappula = new Nappula(new Pelaaja("Mikko", VARI.KELTAINEN), VARI.KELTAINEN.getLahtoruutu());
+        this.nappula = new Nappula(new Pelaaja(KELTAINEN));
         this.ruutu = new Ruutu(2, null);
     }
     
@@ -44,7 +45,7 @@ public class NappulaTest {
     
     @Test
     public void nappulanPelaajaOikein(){
-        assertTrue(this.nappula.getPelaaja().getNimi().equals("Mikko"));
+        assertTrue(this.nappula.getPelaaja().getVari().equals(KELTAINEN));
     }
     
     @Test

@@ -5,14 +5,12 @@
 package kayttoliittyma;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.HashMap;
 import javax.swing.JButton;
 import sovelluslogiikka.KimbleLogiikka;
-import sovelluslogiikka.Nappula;
 import sovelluslogiikka.Ruutu;
 import sovelluslogiikka.VARI;
 
@@ -28,16 +26,15 @@ public class PyoreaNappi extends JButton {
     /**
      * Sijainti x:n suhteen.
      */
-    private int x;
+    private final int x;
 
     /**
      * Sijainti y:n suhteen.
      */
-    private int y;
+    private final int y;
 
     /**
-     * Ruudun väri. BLUE/RED/YELLOW/GREEN jos ruudussa nappula tai LIGHT_GREY
-     * jos tyhjä.
+     * Ruudun väri. BLUE/RED/YELLOW/GREEN jos ruudussa nappula.
      */
     private Color vari;
 
@@ -55,7 +52,7 @@ public class PyoreaNappi extends JButton {
     /**
      * Napin koko (size = leveys = korkeus).
      */
-    private int size;
+    private final int size;
 
     /**
      * Sovelluslogiikan ruutu johon nappi liittyy.
@@ -72,11 +69,6 @@ public class PyoreaNappi extends JButton {
      */
     private Kayttoliittyma kayttoliittyma;
 
-    /**
-     * Napin ruudun indeksi.
-     */
-    private int indeksi;
-
 
     /**
      * Alustetaan muuttujat.
@@ -87,9 +79,8 @@ public class PyoreaNappi extends JButton {
      * @param ruutu ruutu, johon nappi liittyy
      * @param logiikka sovelluslogiikan rajapinta
      * @param kayttoliittyma käyttöliittymä
-     * @param indeksi ruudun indeksi
      */
-    public PyoreaNappi(int x, int y, Color vari, Ruutu ruutu, KimbleLogiikka logiikka, Kayttoliittyma kayttoliittyma, int indeksi) {
+    public PyoreaNappi(int x, int y, Color vari, Ruutu ruutu, KimbleLogiikka logiikka, Kayttoliittyma kayttoliittyma) {
         this.x = x;
         this.y = y;
         this.vari = vari;
@@ -98,7 +89,6 @@ public class PyoreaNappi extends JButton {
         this.ruutu = ruutu;
         this.logiikka = logiikka;
         this.kayttoliittyma = kayttoliittyma;
-        this.indeksi = indeksi;
 
         setContentAreaFilled(false);
     }
@@ -166,7 +156,7 @@ public class PyoreaNappi extends JButton {
         for (Integer i : paivitettavat.keySet()) {
 
             if (paivitettavat.get(i) == null) {
-                this.kayttoliittyma.getNappilista().get(i).maalaaVarilla(Color.LIGHT_GRAY);
+                this.kayttoliittyma.getNappilista().get(i).piirraTyhjaRuutu(Color.LIGHT_GRAY);
             } else {
                 this.kayttoliittyma.getNappilista().get(i).piirraNappularuutu(paivitettavat.get(i).getColor());
             }
@@ -177,6 +167,10 @@ public class PyoreaNappi extends JButton {
         kayttoliittyma.paivitaVuoroteksti();
 
     }
+    
+    /**
+     * Päivitetään lautaa luodessa nappien väritys.
+     */
 
     public void maarittele() {
 
@@ -191,8 +185,12 @@ public class PyoreaNappi extends JButton {
             this.vari = Color.LIGHT_GRAY;
         }
     }
-
-    public void maalaaVarilla(Color vari) {
+/**
+ * Päivitetään peliä pelatessa ruutu tyhjäksi.
+ * @param vari haluttu väri
+ */
+    
+    public void piirraTyhjaRuutu(Color vari) {
         this.vari = vari;
         if(this.ruutu.getVari() != null) {
             this.borderVari = this.ruutu.getVari().getColor();
@@ -202,6 +200,11 @@ public class PyoreaNappi extends JButton {
         
         this.repaint();
     }
+    
+    /**
+     * Päivitetään peliä pelatessa ruutu nappulalliseksi.
+     * @param vari 
+     */
 
     public void piirraNappularuutu(Color vari) {
         this.borderVari = Color.DARK_GRAY;

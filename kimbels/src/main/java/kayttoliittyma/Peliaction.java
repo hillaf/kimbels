@@ -4,44 +4,44 @@
  */
 package kayttoliittyma;
 
-import java.util.ArrayList;
 import sovelluslogiikka.Pelilauta;
 
 /**
  *
  * Hallinnoi alun kyselyjä ja peliä.
- * 
+ *
  * @author hilla
  */
 public class Peliaction implements Runnable {
-    
-    private Kayttoliittyma kayttoliittyma;
-    private Alkukyselyt kyselyt;
-    private Pelilauta pelilauta;
-    
-    public Peliaction(){
+
+    private final Kayttoliittyma kayttoliittyma;
+    private final Alkukyselyt kyselyt;
+    private final Pelilauta pelilauta;
+
+    /**
+     * Peliaction alustaa kaikki muut villit luokat.
+     */
+    public Peliaction() {
         this.pelilauta = new Pelilauta();
         this.kayttoliittyma = new Kayttoliittyma(this.pelilauta);
         this.kyselyt = new Alkukyselyt(this);
     }
 
-    /**
-     * Kutsutaan kun Aloituskuuntelija vastaanottaa klikkauksen.
-     */
-    
     @Override
     public void run() {
         this.kyselyt.run();
-        
+
     }
-    
-    public void setPelaajienMaara(int maara){
+
+    /**
+     * Kutsutaan kun Aloituskuuntelija vastaanottaa klikkauksen. Peli alkaa!
+     * @param maara pelaajien maara int-muuttujana
+     */
+
+    public void setPelaajienMaara(int maara) {
         this.pelilauta.luoRuudut();
-        this.pelilauta.luoPelaajat(maara, new ArrayList<String>());
+        this.pelilauta.luoPelaajat(maara);
         this.kayttoliittyma.run();
-        
     }
-    
-    
-    
+
 }

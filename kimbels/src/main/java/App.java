@@ -12,20 +12,15 @@ import kayttoliittyma.PyoreaNappi;
 import sovelluslogiikka.*;
 
 /**
- * Hello world!
+ * Pääohjelma. Käynnistää Peliactionin.
  *
  */
 public class App {
 
     public static void main(String[] args) {
-
-
         
         Peliaction action = new Peliaction();
         SwingUtilities.invokeLater(action);
-
-
-
 
     }
 }

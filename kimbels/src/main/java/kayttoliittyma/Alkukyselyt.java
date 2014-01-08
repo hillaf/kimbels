@@ -5,17 +5,13 @@
 package kayttoliittyma;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 /**
@@ -25,10 +21,20 @@ import javax.swing.WindowConstants;
  * @author hilla
  */
 public class Alkukyselyt implements Runnable {
-    
+    /**
+     * Frame.
+     */
     private JFrame frame;
-    private JPanel panel2;
-    private Peliaction action;
+    
+    /**
+     * Panel, johon nappulat lisätään.
+     */
+    private JPanel panel;
+    
+    /**
+     * Peliaction, annetaan parametrina tapahtumankuuntelijalle.
+     */
+    private final Peliaction action;
     
     public Alkukyselyt(Peliaction action){
         this.action = action;
@@ -41,7 +47,7 @@ public class Alkukyselyt implements Runnable {
     @Override
     public void run() {
         this.frame = new JFrame("Kimbels 1.0");
-        this.panel2 = new JPanel();
+        this.panel = new JPanel();
         
         this.frame.setLayout(new BorderLayout());
         
@@ -76,12 +82,12 @@ public class Alkukyselyt implements Runnable {
         group.add(button3);
         group.add(button4);
         
-        this.panel2.add(button1);
-        this.panel2.add(button2);
-        this.panel2.add(button3);
-        this.panel2.add(button4);
+        this.panel.add(button1);
+        this.panel.add(button2);
+        this.panel.add(button3);
+        this.panel.add(button4);
         
-        this.frame.getContentPane().add(panel2, BorderLayout.CENTER);
+        this.frame.getContentPane().add(panel, BorderLayout.CENTER);
         
         JButton pelataan = new JButton("Pelataan!");
         pelataan.addActionListener(new Aloituskuuntelija(button1, button2, button3, button4, this.action, pelataan));

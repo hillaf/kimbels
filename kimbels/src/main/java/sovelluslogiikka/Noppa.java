@@ -14,8 +14,16 @@ import java.util.Random;
  * @author hilla
  */
 public class Noppa {
+
+    /**
+     * Arpoo lukuja.
+     */
+    private final Random arpoja;
     
-    private Random arpoja;
+    /**
+     * Onko noppa klikattava, toisin sanoen onko tällä hetkellä sellainen vaihe
+     * vuoroa, että pelaajan odotetaan heittävän noppaa.
+     */
     private boolean onKlikattava;
     
     public Noppa(){

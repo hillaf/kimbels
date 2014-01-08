@@ -4,12 +4,12 @@
  */
 package sovelluslogiikka;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  *
- * Sovelluslogiikan rajapinta käyttöliittymälle.
+ * Sovelluslogiikan rajapinta käyttöliittymälle. TODO: karsi turhat ja terävöitä!
+ * Tällä hetkellä vähän sillisalaatti.
  * 
  * 
  * @author hilla
@@ -18,7 +18,7 @@ public interface KimbleLogiikka {
     
 
     void luoRuudut();
-    void luoPelaajat(int pelaajienMaara, ArrayList<String> nimilista);
+    void luoPelaajat(int pelaajienMaara);
     
     HashMap<Integer, VARI> siirraNappulaa(Nappula nappula, int askeleita);
     boolean siirraLahtoruutuun(Nappula nappula);

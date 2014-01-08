@@ -14,8 +14,8 @@ import java.awt.Color;
  */
 public enum VARI {
     SININEN(0, Color.BLUE), PUNAINEN(11, Color.RED), KELTAINEN(22, Color.YELLOW), VIHREA(33, Color.GREEN);
-    private int lahtoruutu;
-    private Color color;
+    private final int lahtoruutu;
+    private final Color color;
 
         private VARI(int lahtoruutu, Color color) {
                 this.lahtoruutu = lahtoruutu;

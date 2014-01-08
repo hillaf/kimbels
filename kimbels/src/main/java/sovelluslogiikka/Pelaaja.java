@@ -14,21 +14,14 @@ import java.util.ArrayList;
  */
 public class Pelaaja {
     
-    private String nimi;
-    private VARI vari;
+    private final VARI vari;
     private ArrayList<Nappula> nappulat;
-    
-    public Pelaaja(String nimi, VARI vari){
-        this.nimi = nimi;
-        this.vari = vari;
-        this.nappulat = new ArrayList<Nappula>();
-    }
     
     public Pelaaja(VARI vari){
         this.vari = vari;
-        this.nimi = vari.toString();
+        this.nappulat = new ArrayList<Nappula>();
     }
-    
+   
     public ArrayList<Nappula> getNappulat(){
         return this.nappulat;
     }
@@ -37,9 +30,6 @@ public class Pelaaja {
         this.nappulat = nappulat;
     }
     
-    public String getNimi(){
-        return this.nimi;
-    }
     
     public VARI getVari(){
         return this.vari;
