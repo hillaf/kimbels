@@ -1,0 +1,32 @@
+Ohjelman rakenteen kuvaus
+
+Sovelluslogiikassa Pelilauta huolehtii käytännössä kaikesta (liikaakin) eli nappuloiden
+siirtelystä ja tilanteen päivittelystä ja näin pois päin. Pelaaja tuntee nappulansa ja
+nappulat tietävät sijaintinsa (ruutu). Hämmennystä aiheuttavat huippuintuitiiviset 
+indeksit ovat ruutujen sijainteja:
+
+0-43 normaaleja ruutuja ja maaliruutuja:
+
+7-10 PUNAINEN maaliruudut
+18-21 KELTAINEN maaliruudut
+29-32 VIHREÄ maaliruudut
+40-43 SININEN maaliruudut
+
+44-60 lähtöruudut:
+44-47 SININEN
+48-51 PUNAINEN
+52-55 KELTAINEN
+56-59 VIHREA
+
+
+Käyttöliittymä huolehtii ainoastaan piirtämisestä ja vuoron kulusta tapahtumakuuntelijoiden
+kautta. Aina kun nappulaa tai noppaa klikataan, kutsutaan KimbleLogiikka-rajapinnan kautta
+sovelluslogiikan (käytännössä Pelilaudan) metodeja, jotka palauttavat päivitettävät ruudut
+käyttöliittymälle (tai siis PyoreaNappula-oliolle), joka päivittää listasta annetut indeksit
+annetuilla väreillä (tässä vaiheessa kaikki on siis jo sovelluslogiikan puolella päivitetty).
+
+Äänipaketti on vähän sellainen riekale-roikale, jonka jätin mukaan siltä varalta että sitä
+haluaa tulevaisuudessa vielä vilkaista. Kyseessä on siis kauhean kivalla SoundToClass-converterilla
+audio filestä java classiksi muutettu tiedosto, joka nyt ei kuitenkaan toiminut.
+
+SoundToClass: http://stephengware.com/projects/soundtoclass/
