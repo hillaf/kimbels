@@ -4,7 +4,6 @@
  */
 package kayttoliittyma;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -178,6 +177,7 @@ public class Kayttoliittyma implements Runnable {
      */
     public void piirraVarittomatRuudut(int xi, int yi, int i) {
 
+        
         Color vari = Color.LIGHT_GRAY;
 
         if (onkoRuutuVariton(i)) {
@@ -186,8 +186,15 @@ public class Kayttoliittyma implements Runnable {
             asetaY(i);
         }
     }
-    
-    public boolean onkoRuutuVariton(int indeksi){
+
+    /**
+     * Tarkistaa onko ruutu väritön.
+     *
+     * @param indeksi tutkittavan ruudun indeksi
+     * @return true jos väritön, false jos sininen/punainen/jne.
+     */
+
+    public boolean onkoRuutuVariton(int indeksi) {
         return this.logiikka.getRuutu(indeksi).getVari() == null;
     }
 
@@ -195,8 +202,8 @@ public class Kayttoliittyma implements Runnable {
      *
      * Luo annetun värisen PyoreaNappi-olion annettuun sijaintiin x, y. i on
      * ruudun indeksi. Selvittää logiikalta onko ruudussa nappulaa ja onko sitä
-     * mahdollista siirtää (onko kyseessä vuorossaolevan pelaajan nappula).
-     * VOIS TEHDÄ: tee tästä oma metodinsa sovelluslogiikkaan. Luo myös
+     * mahdollista siirtää (onko kyseessä vuorossaolevan pelaajan nappula). VOIS
+     * TEHDÄ: tee tästä oma metodinsa sovelluslogiikkaan. Luo myös
      * tapahtumankuuntelijan. Toisaalta tätä settiä kutsutaan vain kerran pelin
      * alussa..
      *
@@ -211,12 +218,8 @@ public class Kayttoliittyma implements Runnable {
         PyoreaNappi nappi = new PyoreaNappi(0, 0, vari, this.logiikka.getRuutu(i), this.logiikka, Kayttoliittyma.this);
         nappi.maarittele();
         this.nappilista.put(i, nappi);
-        
-        if (logiikka.onkoRuudussaNappula(i) && logiikka.minkaVarinenNappula(i).equals(this.logiikka.kenenVuoro())) {
-            this.logiikka.getRuutu(i).setOnkoValittava(true);
-        } else {
-            this.logiikka.getRuutu(i).setOnkoValittava(false);
-        }
+
+        this.logiikka.getRuutu(i).setOnkoValittava(false);
 
         nappi.addActionListener(new KlikkausKuuntelija(nappi));
         this.panel.add(nappi);

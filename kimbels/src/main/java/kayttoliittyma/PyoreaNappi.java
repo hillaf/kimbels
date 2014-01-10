@@ -180,7 +180,7 @@ public class PyoreaNappi extends JButton {
             if (this.ruutu.getVari() != null) {
                 this.borderVari = this.ruutu.getVari().getColor();
             } else {
-                this.borderVari = Color.LIGHT_GRAY;
+                this.borderVari = getAloitusruutuvari(this.ruutu.getSijainti());
             }
             this.vari = Color.LIGHT_GRAY;
         }
@@ -198,7 +198,28 @@ public class PyoreaNappi extends JButton {
             this.borderVari = this.vari;
         }
         
+        this.borderVari = getAloitusruutuvari(this.ruutu.getSijainti());
+        
         this.repaint();
+    }
+    
+    
+    public Color getAloitusruutuvari(int indeksi){
+        
+        if (indeksi == VARI.SININEN.getLahtoruutu()){
+            return VARI.SININEN.getColor();
+        }
+        if (indeksi == VARI.PUNAINEN.getLahtoruutu()){
+            return VARI.PUNAINEN.getColor();
+        }
+        if (indeksi == VARI.KELTAINEN.getLahtoruutu()){
+            return VARI.KELTAINEN.getColor();
+        }
+        if (indeksi == VARI.VIHREA.getLahtoruutu()){
+            return VARI.VIHREA.getColor();
+        }
+        
+        return Color.LIGHT_GRAY;
     }
     
     /**

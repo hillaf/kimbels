@@ -60,8 +60,8 @@ public class NopanKuuntelija implements ActionListener {
             this.dice.play();
             int silmaluku = this.logiikka.heitaNoppaa();
             this.noppa.setText(String.valueOf(silmaluku));
-            this.logiikka.setSiirtoVuoro(this.logiikka.kenenVuoro(), silmaluku);
-            this.logiikka.siirrytaanSiirtymisvuoroon();
+            this.logiikka.setVuorossaolijaJaSilmaluku(this.logiikka.kenenVuoro(), silmaluku);
+            this.logiikka.setSiirtymisvuoro();
             this.kayttoliittyma.paivitaVuoroteksti();
         }
 

@@ -1,0 +1,14 @@
+Kimbels 1.0
+Käyttöohjeet
+
+Peli alkaa valitsemalla montako pelaajaa peliin osallistuu. Nappia painamalla päästään pelilaudalle,
+jossa sininen pelaaja aloittaa heittämällä noppaa. Aina, kun pelaaja on heittänyt noppaa, hän voi
+liikuttaa nappulaansa klikkaamalla nappulaa, jota hän haluaa siirtää. Aloitusruudusta liikkuakseen
+on heitettävä silmäluku 6. Kuutosen heittämällä saa myös uuden vuoron.
+
+Pelilaudalla liikutaan vastapäivään ja vastustajan nappuloita voi syödä liikumalla ruutuun, jossa
+on jo ennestään vastustajan nappula. Pelissä voi myös taktikoida jättämällä siirtovuoronsa väliin
+yrittämällä liikuttaa nappulaa, joka ei voi liikkua ja näin passata oman vuoronsa eteenpäin ilman
+siirtoa.
+
+Maaliin on päästävä tasaluvulla. Pelaaja voittaa, kun kaikki hänen nappulansa ovat maalissa.
